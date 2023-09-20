@@ -8,7 +8,7 @@
         </div>
 
         <div class="col-lg-2 col-sm-4 col-6 text-center mb-4 ">
-            <a href="#" class="text-dark">
+            <a href="users.php" class="text-dark">
                 <img src="../images/users.png">
                 <h6 class="mt-3 fw-bold">Users</h6>
             </a>

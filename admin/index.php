@@ -26,7 +26,7 @@
                 </div>
             </div>
         </div>
-        <hr class="text-danger opacity-100">
+        <hr class="text-danger opacity-100 my-0">
     </div>
 
 

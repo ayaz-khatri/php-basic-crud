@@ -205,3 +205,55 @@ body
     position: absolute;
     bottom: 0;
 }
+
+/*
+/////////////////////////////////////////////////////////
+  Crud Table
+////////////////////////////////////////////////////////
+*/
+
+#crudTable
+{
+  font-size: 14px;
+}
+
+#crudTable table .actionColumn
+{
+  min-width: 120px;
+}
+
+#crudTable table td
+{
+  vertical-align: middle;
+}
+
+#crudTable table a
+{
+  padding:0px 5px;
+}
+
+#crudTable .crtudTableImage
+{
+  width: 30px;
+  height: 30px;
+}
+
+@media (max-width: 767.98px)
+{
+  #crudTable .dataTables_length label, #crudTable .dataTables_info
+  {
+    /* display: inline-block !important; */
+    float: left;
+  }
+
+  .dataTables_filter label
+  {
+    /* display: inline-block !important; */
+    float: right;
+  }
+
+  #crudTable .dataTables_paginate ul.pagination
+  {
+    float: right;
+  }
+}

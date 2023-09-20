@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap');
+
+*
+{
+    font-family: 'Cabin', Helvetica, sans-serif;
+}
+
+body 
+{
+    min-height: 100vh;
+    position: relative;
+    margin: 0;
+    padding-bottom: 100px;
+    box-sizing: border-box;
+    background-color: #FFFAF8;
+}
+
+.hero 
+{
+    background-color: #333;
+    text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
+    box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+    background-image: url('../images/hero.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+
+.navbar .nav-item .nav-link::after 
+{
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transition: width .3s;
+}
+
+.navbar .nav-item .nav-link:hover::after 
+{
+    width: 100%;
+    /*transition: width .3s;*/
+}
+
+.navbar .nav-item .login-btn:hover::after
+{
+    width: 0;
+}
+
+.color-white:hover a
+{
+    color: #ffffff !important;
+}
+
+.dropdown-menu a:focus 
+{
+  background-color: #dc3545 !important; 
+}
+
+
+.box
+{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/*Boxes=================================================
+===========================================================*/
+
+#boxes .box
+{
+  border:1px solid #b9b9b9;
+  min-height: 350px;
+  max-height: 350px;
+  margin-top: 50px;
+}
+
+#boxes .box:hover .box-icon
+{
+  background-color: #dc3545;
+  color:#ffffff;
+  box-shadow:none;
+}
+
+#boxes .box .box-icon
+{
+    width: 100px;
+    height: 100px;
+    border: 1px solid #b9b9b9;
+    text-align: center;
+    line-height: 100px;
+    font-size: 40px;
+    background-color: #ffffff;
+    transform: rotate(45deg);
+    margin: -50px auto -20px;
+    animation-duration: 0.5s;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+#boxes .box .box-icon i
+{
+  transform: rotate(-45deg);
+}
+
+#boxes .box .box-content
+{
+  margin:60px 10px 10px 20px;
+  min-height: 150px;
+  max-height: 150px;
+}
+
+@media(max-width: 992px) 
+{  
+  #boxes .box
+  {
+    margin-bottom: 100px;
+    min-height: 250px;
+    max-height: 300px;
+  }
+  #boxes .box .box-content
+  {
+    min-height: 100px;
+    max-height: 100px;
+  }
+}
+
+#boxes .box:hover h3:after
+{
+  transform: scaleX(1);
+}
+
+/*Border Bottom Animation ===================================
+===========================================================*/
+
+.borderBottomHeading
+{
+   display:inline-block;
+}
+
+.borderBottomHeading:after
+{
+  display:block;
+  content: '';
+  border-bottom: solid 4px #dc3545;  
+  transform: scaleX(0);  
+  transition: transform 250ms ease-in-out;
+}
+
+.borderBottomHeading:hover:after { transform: scaleX(1); }
+
+
+.fromRight:after{ transform-origin:100% 50%; }
+.fromLeft:after{  transform-origin:  0% 50%; }
+
+/*Border Bottom Animation End===============================
+===========================================================*/
+.eyeButton
+{
+  pointer-events: auto !important;  
+  cursor: pointer;
+}
+
+
+/*
+/////////////////////////////////////////////////////////
+  Dashboard Icons
+////////////////////////////////////////////////////////
+*/
+
+#dashboardIcons a
+{
+  text-decoration: none;
+}
+
+#dashboardIcons a:hover
+{
+  color: #dc3545 !important;
+  text-decoration: none;
+}
+
+#dashboardIcons img
+{
+  transition: all .2s ease-in-out;
+}
+
+#dashboardIcons img:hover,
+#dashboardIcons a:hover img
+{
+  transform: scale(1.1);
+}
+
+/*
+/////////////////////////////////////////////////////////
+  Dashboard Icons Ended
+////////////////////////////////////////////////////////
+*/
+
+.sidebarLink:hover
+{
+  color: #dc3545 !important;
+}
+
+.footer 
+{
+    position: absolute;
+    bottom: 0;
+}

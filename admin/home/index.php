@@ -1,19 +1,19 @@
 <?php
-    include('../logics/init-session.php'); // start session if it's not already started
-    include('logics/check-if-not-admin.php'); // check if user is not admin
+    include('../../logics/init-session.php'); // start session if it's not already started
+    include('../logics/check-if-not-admin.php'); // check if user is not admin
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <title>Admin Dashboard</title>
-    <?php include('includes/head-contents.php'); ?>
+    <?php include('../includes/head-contents.php'); ?>
 </head>
 
 <body>
 
-    <?php include('includes/admin-navbar.php'); ?>
-    <?php include('includes/admin-sidebar.php'); ?>
+    <?php include('../includes/admin-navbar.php'); ?>
+    <?php include('../includes/admin-sidebar.php'); ?>
     <div class="container my-5">
         <div class="row px-2">
             <div class="col-6">
@@ -30,10 +30,10 @@
     </div>
 
 
-    <?php include('includes/admin-dashboard-icons.php'); ?>
-    <?php include('../includes/footer.php'); ?>
+    <?php include('../includes/admin-dashboard-icons.php'); ?>
+    <?php include('../../includes/footer.php'); ?>
 
-    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

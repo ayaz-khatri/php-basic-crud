@@ -13,7 +13,7 @@
     <div class="offcanvas-body px-0">
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
             <li class="nav-item fw-bold">
-                <a href="users.php" class="nav-link text-dark sidebarLink">
+                <a href="../users/users.php" class="nav-link text-dark sidebarLink">
                     <i class="fa-solid fa-people-group" data-bs-toggle="tooltip" title="Users" style="width: 15px;"></i><span class="ms-3 d-none d-md-inline">Users</span>
                 </a>
             </li>

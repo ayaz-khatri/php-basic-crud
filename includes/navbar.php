@@ -37,7 +37,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <?php 
               if($_SESSION['usertype'] == 'a'){ ?>
-              <li><a class="dropdown-item py-2" href="admin/index.php"><i class="fa-solid fa-house me-2"></i> Dashboard</a></li>
+              <li><a class="dropdown-item py-2" href="admin/home/index.php"><i class="fa-solid fa-house me-2"></i> Dashboard</a></li>
             <?php } ?>
             <li><a class="dropdown-item py-2" href="change-password.php"><i class="fa-solid fa-key me-2"></i> Change Password</a></li>
             <li><hr class="dropdown-divider"></li>

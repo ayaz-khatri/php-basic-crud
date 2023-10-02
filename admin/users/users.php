@@ -1,7 +1,7 @@
 <?php
-    include('../logics/init-session.php'); // start session if it's not already started
-    include('logics/check-if-not-admin.php'); // check if user is not admin
-    include('../logics/db.php'); // database connection
+    include('../../logics/init-session.php'); // start session if it's not already started
+    include('../logics/check-if-not-admin.php'); // check if user is not admin
+    include('../../logics/db.php'); // database connection
 	$obj = new db(); // create new object of db class
     $datatable = true;
 ?>
@@ -10,13 +10,13 @@
 
 <head>
     <title>Users</title>
-    <?php include('includes/head-contents.php'); ?>
+    <?php include('../includes/head-contents.php'); ?>
 </head>
 
 <body>
 
-    <?php include('includes/admin-navbar.php'); ?>
-    <?php include('includes/admin-sidebar.php'); ?>
+    <?php include('../includes/admin-navbar.php'); ?>
+    <?php include('../includes/admin-sidebar.php'); ?>
     <div class="container my-4">
         <div class="row px-2">
             <div class="col-6">
@@ -62,7 +62,7 @@
                 
                     <tr>
                     <td><input type="checkbox" name="checkbox"></td>
-                    <td><img src="../images/user.png" onerror="onImgError(this)" alt="image" class="crtudTableImage"></td>
+                    <td><img src="../../images/user.png" onerror="onImgError(this)" alt="image" class="crtudTableImage"></td>
                     <td><?php echo $res["user_id"] ?></td>
                     <td><?php echo $res["user_name"] ?></td>
                     <td><?php echo $res["user_email"] ?></td>
@@ -247,9 +247,8 @@
         </div>
     </div>
 
-<script src="js/check-boxes.js"></script>
-<script>
 
+    <script>
     /*--------------------------
       Data Table
     ---------------------------*/
@@ -267,85 +266,16 @@
 
     function onImgError(source)
     {
-        source.src = "../images/user-placeholder.png";
+        source.src = "../../images/user-placeholder.png";
         // disable onerror to prevent endless loop
         source.onerror = "";
         return true;
     }
-
-    document.addEventListener("DOMContentLoaded", function() {
-        var deleteLinks = document.querySelectorAll(".delete");
-        var blockLinks = document.querySelectorAll(".block");
-
-        deleteLinks.forEach(function(link) {
-            link.addEventListener("click", function(event) {
-                event.preventDefault();
-                var id = this.getAttribute("data-id");
-                var deleteLink = document.getElementById("deleteLink");
-
-                // Set the "Delete" link's href dynamically
-                deleteLink.href = 'delete.php?id=' + id;
-
-                // Show the modal
-                var deleteModal = document.getElementById("deleteModal");
-                var modal = new bootstrap.Modal(deleteModal);
-                modal.show();
-            });
-        });
-
-        blockLinks.forEach(function(link) {
-            link.addEventListener("click", function(event) {
-                event.preventDefault();
-                var id = this.getAttribute("data-id");
-                var blockLink = document.getElementById("blockLink");
-
-                // Set the "Block" link's href dynamically
-                blockLink.href = 'block.php?id=' + id;
-
-                // Show the modal
-                var blockModal = document.getElementById("blockModal");
-                var modal = new bootstrap.Modal(blockModal);
-                modal.show();
-            });
-        });
-
-
-        function getSelectedIds() {
-            var selectedIds = [];
-            document.querySelectorAll('#myTable input[type="checkbox"]:checked').forEach(function (checkbox) {
-                var id = checkbox.closest('tr').querySelector('td:nth-child(3)').textContent;
-                selectedIds.push(id);
-            });
-            return selectedIds;
-        }
-
-        // Event listener for the #deleteSelected
-        document.getElementById('deleteSelected').addEventListener('click', function(event) {
-            event.preventDefault();
-
-            var selectedIds = getSelectedIds();
-            // Populate the hidden input field with selected user IDs
-            var selectedIdsInput = document.getElementById('selectedDeleteIds');
-            selectedIdsInput.value = selectedIds.join(',');
-        });
-
-
-        // Event listener for the #deleteSelected
-        document.getElementById('blockSelected').addEventListener('click', function(event) {
-            event.preventDefault();
-
-            var selectedIds = getSelectedIds();
-            // Populate the hidden input field with selected user IDs
-            var selectedIdsInput = document.getElementById('selectedBlockIds');
-            selectedIdsInput.value = selectedIds.join(',');
-        });
-
-    });
-</script>
-
-    <?php include('../includes/footer.php'); ?>
-
-    <script src="../js/bootstrap.bundle.min.js"></script>
+    </script>
+    <script src="../js/check-boxes.js"></script>
+    <script src="../js/modal-settings.js"></script>
+    <?php include('../../includes/footer.php'); ?>
+    <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

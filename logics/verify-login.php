@@ -33,7 +33,7 @@
 					$_SESSION['usertype'] = $result[0]['user_role'];
 					if($_SESSION['usertype'] == 'a')
 					{
-						header("Location: ../admin/index.php"); die();
+						header("Location: ../admin/home/index.php"); die();
 					}
 					else
 					{

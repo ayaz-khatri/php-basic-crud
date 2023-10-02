@@ -232,6 +232,11 @@ body
   padding:0px 5px;
 }
 
+#crudTable input[type="checkbox"]
+{
+  cursor: pointer;
+}
+
 #crudTable .crtudTableImage
 {
   width: 30px;

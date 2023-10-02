@@ -1,12 +1,12 @@
 <?php
-  include('../includes/config.php'); // Website's configuration
-  include('../logics/init-session.php'); // start session if it's not already started
+  include('../../includes/config.php'); // Website's configuration
+  include('../../logics/init-session.php'); // start session if it's not already started
   $current_page = basename($_SERVER['PHP_SELF']);
 ?>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark box">
   <div class="container-fluid mx-4 my-1">
-    <a class="navbar-brand fw-bold" href="../index.php">
-      <img src="../images/logo.png" style="width: 32px;" alt="logo" class="me-2">
+    <a class="navbar-brand fw-bold" href="../../index.php">
+      <img src="../../images/logo.png" style="width: 32px;" alt="logo" class="me-2">
       <?php
         echo WEBSITE_NAME; // website name can be changed from config.php file in includes folder 
       ?>
@@ -18,7 +18,7 @@
       <ul class="navbar-nav w-100 ">
         <span class="border-end me-2"></span>
         <li class="nav-item">
-          <a class="nav-link <?php echo ($current_page == 'index.php') ? 'active fw-bold' : '' ?>" href="index.php">Home</a>
+          <a class="nav-link <?php echo ($current_page == 'index.php') ? 'active fw-bold' : '' ?>" href="../home/index.php">Home</a>
         </li>
         <?php
           if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) { ?>
@@ -31,11 +31,11 @@
                   if ($_SESSION['usertype'] == 'a') { ?>
                     <li><a class="dropdown-item py-2" href="index.php"><i class="fa-solid fa-house me-2"></i> Dashboard</a></li>
                 <?php } ?>
-                <li><a class="dropdown-item py-2" href="../change-password.php"><i class="fa-solid fa-key me-2"></i> Change Password</a></li>
+                <li><a class="dropdown-item py-2" href="../../change-password.php"><i class="fa-solid fa-key me-2"></i> Change Password</a></li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item py-2" href="../logics/logout.php"><i class="fa-solid fa-power-off me-2"></i> Logout</a></li>
+                <li><a class="dropdown-item py-2" href="../../logics/logout.php"><i class="fa-solid fa-power-off me-2"></i> Logout</a></li>
               </ul>
             </li>
         <?php } else { ?>

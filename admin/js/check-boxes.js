@@ -4,13 +4,30 @@
 
 document.querySelectorAll('#myTable input[type="checkbox"]').forEach(function (checkbox) {
     checkbox.addEventListener('change', function () {
+        var path = window.location.pathname;
+        var page = path.split("/").pop();
         var a = document.querySelectorAll('#myTable input[type="checkbox"]:checked').length;
         if (a > 0) {
             document.getElementById('deleteSelected').classList.remove('disabled');
-            document.getElementById('blockSelected').classList.remove('disabled');
+            if(page == "blocked.php")
+            {
+                document.getElementById('unblockSelected').classList.remove('disabled');
+            }
+            else
+            {
+                document.getElementById('blockSelected').classList.remove('disabled');
+            }
         } else {
             document.getElementById('deleteSelected').classList.add('disabled');
-            document.getElementById('blockSelected').classList.add('disabled');
+            if(page == "blocked.php")
+            {
+                document.getElementById('unblockSelected').classList.add('disabled');
+            }
+            else
+            {
+                document.getElementById('blockSelected').classList.add('disabled');
+            }
+
         }
     });
 });

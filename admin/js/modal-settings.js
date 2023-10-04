@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     var deleteLinks = document.querySelectorAll(".delete");
     var blockLinks = document.querySelectorAll(".block");
+    var unblockLinks = document.querySelectorAll(".unblock");
 
     deleteLinks.forEach(function(link) {
         link.addEventListener("click", function(event) {
@@ -30,6 +31,22 @@ document.addEventListener("DOMContentLoaded", function() {
             // Show the modal
             var blockModal = document.getElementById("blockModal");
             var modal = new bootstrap.Modal(blockModal);
+            modal.show();
+        });
+    });
+
+    unblockLinks.forEach(function(link) {
+        link.addEventListener("click", function(event) {
+            event.preventDefault();
+            var id = this.getAttribute("data-id");
+            var unblockLink = document.getElementById("unblockLink");
+
+            // Set the "Block" link's href dynamically
+            unblockLink.href = 'unblock.php?id=' + id;
+
+            // Show the modal
+            var unblockModal = document.getElementById("unblockModal");
+            var modal = new bootstrap.Modal(unblockModal);
             modal.show();
         });
     });
@@ -69,27 +86,47 @@ document.addEventListener("DOMContentLoaded", function() {
         return selectedIds;
     }
     
-    
+    var path = window.location.pathname;
+    var page = path.split("/").pop();
 
     // Event listener for the #deleteSelected
     document.getElementById('deleteSelected').addEventListener('click', function(event) {
         event.preventDefault();
 
         var selectedIds = getSelectedIds();
-        // Populate the hidden input field with selected user IDs
+        // Populate the hidden input field with selected IDs
         var selectedIdsInput = document.getElementById('selectedDeleteIds');
         selectedIdsInput.value = selectedIds.join(',');
     });
 
 
-    // Event listener for the #blockSelected
-    document.getElementById('blockSelected').addEventListener('click', function(event) {
-        event.preventDefault();
+    if(page == "blocked.php")
+    {
+        // Event listener for the #unblockSelected
+        document.getElementById('unblockSelected').addEventListener('click', function(event) {
+            event.preventDefault();
 
-        var selectedIds = getSelectedIds();
-        // Populate the hidden input field with selected user IDs
-        var selectedIdsInput = document.getElementById('selectedBlockIds');
-        selectedIdsInput.value = selectedIds.join(',');
-    });
+            var selectedIds = getSelectedIds();
+            // Populate the hidden input field with selected IDs
+            var selectedIdsInput = document.getElementById('selectedUnblockIds');
+            selectedIdsInput.value = selectedIds.join(',');
+        });
+    }
+    else
+    {
+        // Event listener for the #blockSelected
+        document.getElementById('blockSelected').addEventListener('click', function(event) {
+            event.preventDefault();
+
+            var selectedIds = getSelectedIds();
+            // Populate the hidden input field with selected IDs
+            var selectedIdsInput = document.getElementById('selectedBlockIds');
+            selectedIdsInput.value = selectedIds.join(',');
+        });
+    }
+
+    
+
+    
 
 });

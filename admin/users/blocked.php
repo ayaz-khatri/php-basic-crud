@@ -9,7 +9,7 @@
 <html lang="en">
 
 <head>
-    <title>Users</title>
+    <title>Blocked Users</title>
     <?php include('../includes/head-contents.php'); ?>
 </head>
 
@@ -20,12 +20,12 @@
     <div class="container my-4">
         <div class="row px-2">
             <div class="col-6">
-                <h2 class="text-danger fw-bold">Users</h2>
+                <h2 class="text-danger fw-bold">Blocked Users</h2>
             </div>
             <div class="col-6 text-end">
                 <div class="btn-group" role="group" aria-label="Basic outlined example">
                     <a href="add.php" type="button" class="btn btn-sm btn-outline-secondary">Add New User</a>
-                    <a href="blocked.php" type="button" class="btn btn-sm btn-outline-danger">Blocked Users</a>
+                    <a href="users.php" type="button" class="btn btn-sm btn-outline-danger">Users</a>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
     <div class="container">
         <div class="row">
         <div class="col">
-            <h5 class="mb-3">All Users</h5>
+            <h5 class="mb-3">All Blocked Users</h5>
             <div id="crudTable">
             <div class="table-responsive">
                 <table class="table table-striped table-sm" id="myTable">
@@ -57,7 +57,7 @@
 
                 <?php 
                 $paramList = [];
-                $sql = "SELECT * FROM users WHERE user_role = 'u' AND user_status = 1 ORDER BY user_id DESC";
+                $sql = "SELECT * FROM users WHERE user_role = 'u' AND user_status = 0 ORDER BY user_id DESC";
                 $result = $obj->executeSQL($sql, $paramList , true);
                 foreach($result as $res) { 
                     ?>
@@ -71,12 +71,8 @@
                     <td><?php echo date('Y-M-d | h:i:s A', strtotime($res["created_at"])) ?></td>
                     <td><?php echo date('Y-M-d | h:i:s A', strtotime($res["updated_at"])) ?></td>
                     <td>
-                        <a href="edit.php?id=<?php echo $res['user_id'] ?>" class="btn btn-primary btn-sm" id="btnEdit">
-                        <i class="fa fa-edit" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"></i>
-                        </a>
-                        |
-                        <a href="#" class="block btn btn-warning btn-sm" data-id=<?php echo $res['user_id'] ?>>
-                        <i class="fa fa-trash-alt" data-bs-toggle="tooltip" data-bs-placement="top" title="Block"></i>
+                        <a href="#" class="unblock btn btn-success btn-sm" data-id=<?php echo $res['user_id'] ?>>
+                        <i class="fa-solid fa-lock-open" data-bs-toggle="tooltip" data-bs-placement="top" title="Unblock"></i>
                         </a>
                         |
                         <a href="#" class="delete btn btn-danger btn-sm" data-id=<?php echo $res['user_id'] ?>>
@@ -94,15 +90,15 @@
                         <a type="button" class="btn btn-success" href="<?php echo $_SERVER['PHP_SELF'] ?>" id="refreshButton">Refresh</a>
                     </div>
                     <div class="btn-group btn-group-sm">
-                        <a href="#" type="button" class="btn btn-warning disabled" id="blockSelected"
-                        data-bs-toggle="modal" data-bs-target="#blockSelectedModal">Block</a>
+                        <a href="#" type="button" class="btn btn-warning disabled" id="unblockSelected"
+                        data-bs-toggle="modal" data-bs-target="#unblockSelectedModal">Unblock</a>
                         <a type="button" class="btn btn-warning dropdown-toggle dropdown-toggle-split"
                         data-bs-toggle="dropdown">
                         <span class="visually-hidden">Toggle Dropdown</span>
                         </a>
                         <ul class="dropdown-menu">
-                        <li><a class="dropdown-item small" href="#" id="blockAll" data-bs-toggle="modal"
-                            data-bs-target="#blockAllModal">Block All</a></li>
+                        <li><a class="dropdown-item small" href="#" id="unblockAll" data-bs-toggle="modal"
+                            data-bs-target="#unblockAllModal">Unblock All</a></li>
                         </ul>
                     </div>
                     <div class="btn-group btn-group-sm">
@@ -187,8 +183,8 @@
         </div>
     </div>
 
-    <!-- The Block Modal -->
-    <div class="modal fade" id="blockModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- The Unblock Modal -->
+    <div class="modal fade" id="unblockModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -197,8 +193,8 @@
             </div>
             <div class="modal-body text-center">
             <form action="#">
-                <p id="modalMessage">Are you sure you want to block this user?</p>
-                <a href="#" id="blockLink" class="btn btn-danger w-25">Yes</a>
+                <p id="modalMessage">Are you sure you want to unblock this user?</p>
+                <a href="#" id="unblockLink" class="btn btn-danger w-25">Yes</a>
                 <button type="button" class="btn btn-secondary w-25" data-bs-dismiss="modal">No</button>
             </form>
             </div>
@@ -207,8 +203,8 @@
         </div>
     </div>
 
-    <!-- The Block Selected Modal -->
-    <div class="modal fade" id="blockSelectedModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- The Unblock Selected Modal -->
+    <div class="modal fade" id="unblockSelectedModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -216,10 +212,10 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center">
-                <form id="blockSelectedForm" method="POST" action="block-selected.php">
-                    <p id="modalMessage">Are you sure you want to block selected user[s]?</p>
+                <form id="unblockSelectedForm" method="POST" action="unblock-selected.php">
+                    <p id="modalMessage">Are you sure you want to unblock selected user[s]?</p>
                     <!-- Hidden input fields to store selected IDs -->
-                    <input type="hidden" name="selectedIds" id="selectedBlockIds" value="">
+                    <input type="hidden" name="selectedIds" id="selectedUnblockIds" value="">
                     <button type="submit" class="btn btn-danger w-25">Yes</button>
                     <button type="button" class="btn btn-secondary w-25" data-bs-dismiss="modal">No</button>
                 </form>
@@ -229,8 +225,8 @@
         </div>
     </div>
 
-    <!-- The Block All Modal -->
-    <div class="modal fade" id="blockAllModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- The Unblock All Modal -->
+    <div class="modal fade" id="unblockAllModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -239,8 +235,8 @@
             </div>
             <div class="modal-body text-center">
             <form action="#">
-                <p id="modalMessage">Are you sure you want to block all users?</p>
-                <a href="block-all.php" class="btn btn-danger w-25">Yes</a>
+                <p id="modalMessage">Are you sure you want to unblock all users?</p>
+                <a href="unblock-all.php" class="btn btn-danger w-25">Yes</a>
                 <button type="button" class="btn btn-secondary w-25" data-bs-dismiss="modal">No</button>
             </form>
             </div>

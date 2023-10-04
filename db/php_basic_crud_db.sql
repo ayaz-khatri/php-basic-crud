@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 20, 2023 at 03:18 PM
+-- Generation Time: Oct 03, 2023 at 02:50 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -26,7 +26,7 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `users`
 --
-
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
   `user_name` varchar(255) NOT NULL,
@@ -43,7 +43,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_password`, `user_role`, `user_status`, `created_at`, `updated_at`) VALUES
-(1, 'John Doe', 'john@example.com', '$2y$10$tMVS.80AAFUl6qLraqtb8ep/a7ByRTsMCrNb6ArOqbXwEya/zsbFe', 'a', 1, '2023-09-14 16:02:37', '2023-09-14 16:02:37');
+(1, 'John Doe', 'john@example.com', '$2y$10$tMVS.80AAFUl6qLraqtb8ep/a7ByRTsMCrNb6ArOqbXwEya/zsbFe', 'a', 1, '2023-09-14 16:02:37', '2023-09-14 16:02:37'),
+(2, 'Mary Johnson', 'maryjohnson@example.com', '$2y$10$6KiS6xRkfjHMUKCaaJ0fa.Ch9RFXB9ubn/1jDYjHLq564EfjKZNRm', 'u', 1, '2023-09-20 19:00:53', '2023-09-20 19:00:53'),
+(3, 'David Wilson', 'davidwilson@example.com', '$2y$10$baXJ.vLlpsWpt0n9/VqLCeL53Ry1bWUtGoT91ZjBtaaqiGVHnt.Q6', 'u', 1, '2023-09-20 19:01:14', '2023-09-20 19:01:14'),
+(4, 'Susan Brown', 'susanbrown@example.com', '$2y$10$k.5WbzCMqaaQtdXwmSBDTeQrb.Zy20njIP9O00ZSgUAraD80xFYLq', 'u', 1, '2023-09-20 19:01:38', '2023-09-20 19:01:38'),
+(5, 'Michael Lee', 'michaellee@example.com', '$2y$10$M/dhdIYoshGEIfBUyohFc.l01UEwch5D/Yzom/KvTC1xUmYeEimba', 'u', 1, '2023-09-20 19:02:02', '2023-09-20 19:02:02'),
+(6, 'Linda Davis', 'lindadavis@example.com', '$2y$10$UXPQCMKfIGwzGNFADk8AouzPxw68WTWI9Gupot9QgtBR0slhkVCr6', 'u', 1, '2023-09-20 19:02:29', '2023-09-20 19:02:29');
 
 --
 -- Indexes for dumped tables
@@ -63,7 +68,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

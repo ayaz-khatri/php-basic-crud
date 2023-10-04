@@ -37,12 +37,39 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function getSelectedIds() {
         var selectedIds = [];
-        document.querySelectorAll('#myTable input[type="checkbox"]:checked').forEach(function (checkbox) {
-            var id = checkbox.closest('tr').querySelector('td:nth-child(3)').textContent;
-            selectedIds.push(id);
+        var checkboxes = document.querySelectorAll('#myTable input[type="checkbox"]');
+        var allChecked = true; // Assume all rows are checked initially
+    
+        // Find the index of the "ID" column
+        var idColumnIndex = -1;
+        var headers = document.querySelectorAll('#myTable th');
+        for (var i = 0; i < headers.length; i++) {
+            if (headers[i].textContent.trim() === 'ID') {
+                idColumnIndex = i;
+                break;
+            }
+        }
+    
+        checkboxes.forEach(function (checkbox, index) {
+            if (index === 0 && checkbox.checked) {
+                allChecked = true;
+                return;
+            }
+    
+            if (!checkbox.checked) {
+                allChecked = false; // If any checkbox is not checked, set allChecked to false
+            } else {
+                var row = checkbox.closest('tr');
+                var cells = row.querySelectorAll('td');
+                if (idColumnIndex >= 0 && idColumnIndex < cells.length) {
+                    selectedIds.push(cells[idColumnIndex].textContent);
+                }
+            }
         });
         return selectedIds;
     }
+    
+    
 
     // Event listener for the #deleteSelected
     document.getElementById('deleteSelected').addEventListener('click', function(event) {

@@ -129,7 +129,21 @@ class db
 	    {
 	    	$query = $this->mysqli->prepare($query);
 	        $query->execute();
-	        $result = $query->get_result()->fetch_all(MYSQLI_ASSOC);
+	        if($select)
+	        {
+	        	$result = $query->get_result()->fetch_all(MYSQLI_ASSOC);
+	    	}
+	    	else
+	    	{
+	    		if($query->affected_rows > 0)
+		        {
+		        	$result = ["queryExecuted" => true, "affectedRows" => $query->affected_rows];
+		        }
+		        else
+		        {
+		        	$result = ["queryExecuted" => false, "affectedRows" => 0];
+		        }
+	    	}
 	    }
 	    return $result;
 	}

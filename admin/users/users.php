@@ -31,7 +31,9 @@
         </div>
         <hr class="text-danger opacity-100 my-0">
     </div>
-
+    
+    <?php include('../../includes/messages.php'); ?>
+    
     <div class="container">
         <div class="row">
         <div class="col">
@@ -227,7 +229,7 @@
         </div>
     </div>
 
-    <!-- The Block Selected Modal -->
+    <!-- The Block All Modal -->
     <div class="modal fade" id="blockAllModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">

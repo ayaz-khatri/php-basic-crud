@@ -4,7 +4,7 @@
 	{
 		if($_SESSION['usertype'] == 'a')
 		{
-			header("Location: admin/index.php"); die();
+			header("Location: admin/home/index.php"); die();
 		}
 		else
 		{

@@ -11,13 +11,13 @@
             }
             else
             {
-                header("Location: ../login.php"); die();
+                header("Location: ../../login.php"); die();
             }	
         }	
 	}
     else
     {
-        header("Location: ../login.php"); die();
+        header("Location: ../../login.php"); die();
     }	
 
 ?>

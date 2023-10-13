@@ -21,8 +21,8 @@
             </div>
             <div class="col-6 text-end">
                 <div class="btn-group" role="group" aria-label="Basic outlined example">
-                    <a href="#" type="button" class="btn btn-sm btn-outline-secondary">Share</a>
-                    <a href="#" type="button" class="btn btn-sm btn-outline-danger">Export</a>
+                    <!-- <a href="#" type="button" class="btn btn-sm btn-outline-secondary">Share</a>
+                    <a href="#" type="button" class="btn btn-sm btn-outline-danger">Export</a> -->
                 </div>
             </div>
         </div>

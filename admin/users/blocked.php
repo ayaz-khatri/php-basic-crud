@@ -24,7 +24,7 @@
             </div>
             <div class="col-6 text-end">
                 <div class="btn-group" role="group" aria-label="Basic outlined example">
-                    <a href="add.php" type="button" class="btn btn-sm btn-outline-secondary">Add New User</a>
+                    <a href="create.php" type="button" class="btn btn-sm btn-outline-secondary">Create User</a>
                     <a href="users.php" type="button" class="btn btn-sm btn-outline-danger">Users</a>
                 </div>
             </div>

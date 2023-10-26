@@ -64,7 +64,8 @@
                 
                     <tr>
                     <td><input type="checkbox" name="checkbox"></td>
-                    <td><img src="../../images/user.png" onerror="onImgError(this)" alt="image" class="crtudTableImage"></td>
+                    <?php $img = empty($res['user_image']) ? "../../images/placeholder.png" : "../uploads/users/" . $res['user_image']?>
+                    <td><img src="<?php echo $img ?>" alt="image" class="crtudTableImage"></td>
                     <td><?php echo $res["user_id"] ?></td>
                     <td><?php echo $res["user_name"] ?></td>
                     <td><?php echo $res["user_email"] ?></td>
@@ -261,14 +262,6 @@
       order: [[2, 'desc']],
     });
 
-
-    function onImgError(source)
-    {
-        source.src = "../../images/user-placeholder.png";
-        // disable onerror to prevent endless loop
-        source.onerror = "";
-        return true;
-    }
     </script>
     <script src="../js/check-boxes.js"></script>
     <script src="../js/modal-settings.js"></script>

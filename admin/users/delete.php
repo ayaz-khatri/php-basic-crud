@@ -9,6 +9,15 @@
         $id = $_GET['id'];
         
         $paramList = [$id];
+
+        $sql = "SELECT user_image FROM users WHERE user_id = ? AND user_role != 'a'";
+        $result = $obj->executeSQL($sql, $paramList, true);
+        if($result[0]['user_image'] != '')
+        {
+            $path = "../uploads/users/" . $result[0]['user_image'];
+            unlink($path);
+        }
+
         $sql = "DELETE FROM users WHERE user_id = ? AND user_role != 'a'";
         $result = $obj->executeSQL($sql, $paramList);
 

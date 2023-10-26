@@ -11,6 +11,10 @@
         $username = $_POST['username'];
 		$email = $_POST['email'];
 		$password = $_POST['password'];
+        $gender = !empty($_POST['gender']) ? $_POST['gender'] : NULL;
+		$dob = !empty($_POST['dob']) ? $_POST['dob'] : NULL;
+		$phone = !empty($_POST['phone']) ? $_POST['phone'] : NULL;
+		$address = !empty($_POST['address']) ? $_POST['address'] : NULL;
         $hashedPassword = '';
         $url = "edit.php?id=$id";
 
@@ -63,11 +67,26 @@
                 {
                     $hashedPassword = $result[0]['user_password'];
                 }
+
+                if(($result[0]['user_image'] != '') && $_FILES['img']['size'] == 0)
+                {
+                    $imageFileName = $result[0]['user_image'];
+                }
+                else
+                {
+                    if($result[0]['user_image'] != '')
+                    {
+                        $path = "../uploads/users/" . $result[0]['user_image'];
+                        unlink($path);
+                    }
+                    // Upload Image
+    				$imageFileName = $obj->uploadImage($_FILES['img'], "../uploads/users/", "user");
+                }
             
                 // Insert user into the database
                 $date = date('Y-m-d H:i:s');
-                $sqlUpdateUser = "UPDATE users SET user_name = ?, user_email = ?, user_password = ?, updated_at = '$date' WHERE user_id = ?";
-                $paramList = [$username, $email, $hashedPassword, $id];
+                $sqlUpdateUser = "UPDATE users SET user_name = ?, user_email = ?, user_password = ?, user_gender = ?, user_dob = ?, user_phone = ?, user_address = ?, user_image = ?, updated_at = '$date' WHERE user_id = ?";
+                $paramList = [$username, $email, $hashedPassword, $gender, $dob, $phone, $address, $imageFileName, $id];
                 $result = $obj->executeSQL($sqlUpdateUser, $paramList);
 
                 if ($result["queryExecuted"]) 

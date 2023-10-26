@@ -215,11 +215,12 @@ body
 #crudTable
 {
   font-size: 14px;
+  white-space: nowrap;
 }
 
 #crudTable table .actionColumn
 {
-  min-width: 120px;
+  min-width: 100px;
 }
 
 #crudTable table td
@@ -243,6 +244,13 @@ body
   height: 30px;
 }
 
+#crudTable tbody tr:nth-child(even):hover td{
+  background-color: #ffffcc !important;
+  }
+  
+#crudTable tbody tr:nth-child(odd):hover td {
+  background-color: #ffffcc !important;
+  }
 @media (max-width: 767.98px)
 {
   #crudTable .dataTables_length label, #crudTable .dataTables_info
@@ -261,4 +269,10 @@ body
   {
     float: right;
   }
+}
+
+.entityImage
+{
+  width: 250px;
+  height: 250px;
 }

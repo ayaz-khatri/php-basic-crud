@@ -6,7 +6,7 @@
 
     $paramList = [];  
     $date = date('Y-m-d H:i:s');
-    $sql = "UPDATE users SET user_status = 0, updated_at = '$date' WHERE user_role != 'a'";
+    $sql = "UPDATE users SET user_status = 0, updated_at = '$date' WHERE user_role != 'a' AND user_status = 1";
     $result = $obj->executeSQL($sql, $paramList);
     
     $affectedRows = $result['affectedRows'];

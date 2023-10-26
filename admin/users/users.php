@@ -64,13 +64,18 @@
                 
                     <tr>
                     <td><input type="checkbox" name="checkbox"></td>
-                    <td><img src="../../images/user.png" onerror="onImgError(this)" alt="image" class="crtudTableImage"></td>
+                    <?php $img = empty($res['user_image']) ? "../../images/placeholder.png" : "../uploads/users/" . $res['user_image']?>
+                    <td><img src="<?php echo $img ?>" alt="image" class="crtudTableImage"></td>
                     <td><?php echo $res["user_id"] ?></td>
                     <td><?php echo $res["user_name"] ?></td>
                     <td><?php echo $res["user_email"] ?></td>
                     <td><?php echo date('Y-M-d | h:i:s A', strtotime($res["created_at"])) ?></td>
                     <td><?php echo date('Y-M-d | h:i:s A', strtotime($res["updated_at"])) ?></td>
                     <td>
+                        <a href="view.php?id=<?php echo $res['user_id'] ?>" class="btn btn-success btn-sm" id="btnView">
+                        <i class="fa fa-eye" data-bs-toggle="tooltip" data-bs-placement="top" title="View"></i>
+                        </a>
+                        |
                         <a href="edit.php?id=<?php echo $res['user_id'] ?>" class="btn btn-primary btn-sm" id="btnEdit">
                         <i class="fa fa-edit" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"></i>
                         </a>
@@ -84,7 +89,7 @@
                         </a>
                     </td>
                     </tr>
-                <?php } ?>
+                <?php }?>
                     
                 </tbody>
                 </table>
@@ -265,14 +270,6 @@
       order: [[2, 'desc']],
     });
 
-
-    function onImgError(source)
-    {
-        source.src = "../../images/user-placeholder.png";
-        // disable onerror to prevent endless loop
-        source.onerror = "";
-        return true;
-    }
     </script>
     <script src="../js/check-boxes.js"></script>
     <script src="../js/modal-settings.js"></script>

@@ -11,6 +11,18 @@
         $paramList = explode(",", $ids); // Convert the comma-separated string to an array
         $placeholders = implode(',', array_fill(0, count($paramList), '?')); // Prepare a parameterized query with placeholders for each ID
         
+        $sql2 = "SELECT user_image FROM users WHERE user_id IN ($placeholders) AND user_role != 'a'";
+        $result2 = $obj->executeSQL($sql2, $paramList, true);
+        foreach($result2 as $res) 
+        {
+            if($res['user_image'] != '')
+            {
+                $path = "../uploads/users/" . $res['user_image'];
+                unlink($path);
+            }
+        }
+
+
         $sql = "DELETE FROM users WHERE user_id IN ($placeholders) AND user_role != 'a'";
         $result = $obj->executeSQL($sql, $paramList);
         

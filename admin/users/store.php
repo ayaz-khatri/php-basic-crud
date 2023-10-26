@@ -9,6 +9,10 @@
 		$username = $_POST['username'];
 		$email = $_POST['email'];
 		$password = $_POST['password'];
+		$gender = !empty($_POST['gender']) ? $_POST['gender'] : NULL;
+		$dob = !empty($_POST['dob']) ? $_POST['dob'] : NULL;
+		$phone = !empty($_POST['phone']) ? $_POST['phone'] : NULL;
+		$address = !empty($_POST['address']) ? $_POST['address'] : NULL;
 
 		// Data validation
 		if (empty($username) || empty($email) || empty($password)) 
@@ -36,12 +40,15 @@
 			} 
 			else 
 			{
+				// Upload Image
+				$imageFileName = $obj->uploadImage($_FILES['img'], "../uploads/users/", "user");
+				
 				// Hash the password
 				$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
 				// Insert user into the database
-				$sqlInsertUser = "INSERT INTO users (user_name, user_email, user_password) VALUES (?,?,?)";
-				$paramList = [$username, $email, $hashedPassword];
+				$sqlInsertUser = "INSERT INTO users (user_name, user_email, user_password, user_gender, user_dob, user_phone, user_address, user_image) VALUES (?,?,?,?,?,?,?,?)";
+				$paramList = [$username, $email, $hashedPassword, $gender, $dob, $phone, $address, $imageFileName];
 				$result = $obj->executeSQL($sqlInsertUser, $paramList);
 
 				if ($result["queryExecuted"]) 
@@ -61,5 +68,16 @@
 	{
 		header('location: create.php'); die();
 	}
+
+
+
+
+
+
+
+
+
+
+
 
 ?>

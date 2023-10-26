@@ -83,7 +83,7 @@
     				$imageFileName = $obj->uploadImage($_FILES['img'], "../uploads/users/", "user");
                 }
             
-                // Insert user into the database
+                // Update into the database
                 $date = date('Y-m-d H:i:s');
                 $sqlUpdateUser = "UPDATE users SET user_name = ?, user_email = ?, user_password = ?, user_gender = ?, user_dob = ?, user_phone = ?, user_address = ?, user_image = ?, updated_at = '$date' WHERE user_id = ?";
                 $paramList = [$username, $email, $hashedPassword, $gender, $dob, $phone, $address, $imageFileName, $id];

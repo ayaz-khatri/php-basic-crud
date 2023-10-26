@@ -18,7 +18,7 @@
                 </a>
             </li>
             <li class="nav-item fw-bold">
-                <a href="#" class="nav-link text-dark sidebarLink">
+                <a href="../categories/categories.php" class="nav-link text-dark sidebarLink">
                     <i class="fa-solid fa-list" data-bs-toggle="tooltip" title="Categories" style="width: 15px;"></i><span class="ms-3 d-none d-md-inline">Categories</span>
                 </a>
             </li>

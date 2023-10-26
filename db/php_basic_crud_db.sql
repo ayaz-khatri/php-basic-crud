@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 19, 2023 at 05:35 PM
+-- Generation Time: Oct 26, 2023 at 03:50 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -20,6 +20,30 @@ SET time_zone = "+00:00";
 --
 -- Database: `php_basic_crud_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `categories`
+--
+DROP TABLE IF EXISTS `categories`;
+CREATE TABLE `categories` (
+  `category_id` int(11) NOT NULL,
+  `category_name` varchar(255) NOT NULL,
+  `category_image` varchar(255) DEFAULT NULL,
+  `category_status` tinyint(1) DEFAULT 1,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`category_id`, `category_name`, `category_image`, `category_status`, `created_at`, `updated_at`) VALUES
+(1, 'Gents', NULL, 1, '2023-10-26 18:37:37', '2023-10-26 18:37:37'),
+(2, 'Ladies', NULL, 1, '2023-10-26 18:49:35', '2023-10-26 18:49:35'),
+(3, 'Kids', NULL, 1, '2023-10-26 18:49:40', '2023-10-26 18:49:40');
 
 -- --------------------------------------------------------
 
@@ -49,15 +73,20 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_password`, `user_gender`, `user_dob`, `user_phone`, `user_address`, `user_image`, `user_role`, `user_status`, `created_at`, `updated_at`) VALUES
 (1, 'John Doe', 'john@example.com', '$2y$10$tMVS.80AAFUl6qLraqtb8ep/a7ByRTsMCrNb6ArOqbXwEya/zsbFe', NULL, NULL, NULL, NULL, NULL, 'a', 1, '2023-09-14 16:02:37', '2023-09-14 16:02:37'),
-(2, 'Mary Johnson', 'maryjohnson@example.com', '$2y$10$6KiS6xRkfjHMUKCaaJ0fa.Ch9RFXB9ubn/1jDYjHLq564EfjKZNRm', NULL, NULL, NULL, NULL, NULL, 'u', 1, '2023-09-20 19:00:53', '2023-10-18 15:41:57'),
-(3, 'David Wilson', 'davidwilson@example.com', '$2y$10$baXJ.vLlpsWpt0n9/VqLCeL53Ry1bWUtGoT91ZjBtaaqiGVHnt.Q6', NULL, NULL, NULL, NULL, NULL, 'u', 1, '2023-09-20 19:01:14', '2023-10-14 12:04:51'),
-(4, 'Susan Brown', 'susanbrown@example.com', '$2y$10$k.5WbzCMqaaQtdXwmSBDTeQrb.Zy20njIP9O00ZSgUAraD80xFYLq', NULL, NULL, NULL, NULL, NULL, 'u', 1, '2023-09-20 19:01:38', '2023-10-14 12:04:51'),
-(5, 'Michael Lee', 'michaellee@example.com', '$2y$10$M/dhdIYoshGEIfBUyohFc.l01UEwch5D/Yzom/KvTC1xUmYeEimba', NULL, NULL, NULL, NULL, NULL, 'u', 1, '2023-09-20 19:02:02', '2023-10-14 12:04:51'),
-(6, 'Linda Davis', 'lindadavis@example.com', '$2y$10$UXPQCMKfIGwzGNFADk8AouzPxw68WTWI9Gupot9QgtBR0slhkVCr6', NULL, NULL, NULL, NULL, NULL, 'u', 1, '2023-09-20 19:02:29', '2023-10-18 14:56:08');
+(2, 'Mary Johnson', 'maryjohnson@example.com', '$2y$10$6KiS6xRkfjHMUKCaaJ0fa.Ch9RFXB9ubn/1jDYjHLq564EfjKZNRm', NULL, NULL, NULL, NULL, 'user-653a3dc7d74bf.png', 'u', 1, '2023-09-20 19:00:53', '2023-10-26 15:24:13'),
+(3, 'David Wilson', 'davidwilson@example.com', '$2y$10$baXJ.vLlpsWpt0n9/VqLCeL53Ry1bWUtGoT91ZjBtaaqiGVHnt.Q6', NULL, NULL, NULL, NULL, 'user-653a3dbcba4ad.jpg', 'u', 1, '2023-09-20 19:01:14', '2023-10-26 15:24:13'),
+(5, 'Michael Lee', 'michaellee@example.com', '$2y$10$M/dhdIYoshGEIfBUyohFc.l01UEwch5D/Yzom/KvTC1xUmYeEimba', NULL, NULL, NULL, NULL, 'user-653a3da24197e.jpg', 'u', 1, '2023-09-20 19:02:02', '2023-10-26 15:24:13'),
+(6, 'Linda Davis', 'lindadavis@example.com', '$2y$10$UXPQCMKfIGwzGNFADk8AouzPxw68WTWI9Gupot9QgtBR0slhkVCr6', NULL, NULL, NULL, NULL, 'user-653a3d9905118.png', 'u', 1, '2023-09-20 19:02:29', '2023-10-26 15:24:13');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`category_id`);
 
 --
 -- Indexes for table `users`
@@ -68,6 +97,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`

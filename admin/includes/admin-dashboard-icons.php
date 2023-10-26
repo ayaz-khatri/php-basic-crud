@@ -15,7 +15,7 @@
         </div>
 
         <div class="col-lg-2 col-sm-4 col-6 text-center mb-4 ">
-            <a href="#" class="text-dark">
+            <a href="../categories/categories.php" class="text-dark">
                 <img src="../../images/categories.png">
                 <h6 class="mt-3 fw-bold">Categories</h6>
             </a>

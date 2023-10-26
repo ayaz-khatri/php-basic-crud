@@ -11,17 +11,17 @@
         $paramList = explode(",", $ids); // Convert the comma-separated string to an array
         $placeholders = implode(',', array_fill(0, count($paramList), '?')); // Prepare a parameterized query with placeholders for each ID
         
-        $sql = "UPDATE users SET user_status = 1, updated_at = '$date' WHERE user_id IN ($placeholders) AND user_role != 'a'";
+        $sql = "UPDATE categories SET category_status = 0, updated_at = '$date' WHERE category_id IN ($placeholders)";
         $result = $obj->executeSQL($sql, $paramList);
         
         $affectedRows = $result['affectedRows'];
-        $message = $affectedRows . " user[s] unblocked successfully.";
+        $message = $affectedRows . " category[s] blocked successfully.";
         $_SESSION['success'] = $message;
-        header("location: blocked.php");
+        header("location: categories.php");
     }
     else
     {
-        header("location: blocked.php");
+        header("location: categories.php");
     }
 
 ?>

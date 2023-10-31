@@ -17,7 +17,7 @@
 		else
 		{
 			$paramList = [$email];
-			$sql = "SELECT * FROM users WHERE user_email = ? AND user_status = 1";
+			$sql = "SELECT * FROM users WHERE email = ? AND status = 1";
 			$result = $obj->executeSQL($sql, $paramList , true);
 			if (empty($result)) 
 			{
@@ -25,12 +25,12 @@
 			} 
 			else
 			{
-				if(password_verify($password, $result[0]['user_password']))
+				if(password_verify($password, $result[0]['password']))
 				{
 					$_SESSION['loggedin'] = true;
-					$_SESSION['userid'] = $result[0]['user_id'];
-					$_SESSION['username'] = $result[0]['user_name'];
-					$_SESSION['usertype'] = $result[0]['user_role'];
+					$_SESSION['userid'] = $result[0]['id'];
+					$_SESSION['username'] = $result[0]['name'];
+					$_SESSION['usertype'] = $result[0]['role'];
 					if($_SESSION['usertype'] == 'a')
 					{
 						header("Location: ../admin/home/index.php"); die();

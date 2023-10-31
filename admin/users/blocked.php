@@ -3,13 +3,17 @@
     include('../logics/check-if-not-admin.php'); // check if user is not admin
     include('../../logics/db.php'); // database connection
 	$obj = new db(); // create new object of db class
+
     $datatable = true;
+    include('variables.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Blocked Users</title>
+    <title>Blocked <?php echo ucwords($plural) ?></title>
+
     <?php include('../includes/head-contents.php'); ?>
 </head>
 
@@ -20,12 +24,12 @@
     <div class="container my-4">
         <div class="row px-2">
             <div class="col-6">
-                <h2 class="text-danger fw-bold">Blocked Users</h2>
+                <h2 class="text-danger fw-bold">Blocked <?php echo ucwords($plural); ?></h2>
             </div>
             <div class="col-6 text-end">
                 <div class="btn-group" role="group" aria-label="Basic outlined example">
-                    <a href="create.php" type="button" class="btn btn-sm btn-outline-secondary">Create User</a>
-                    <a href="users.php" type="button" class="btn btn-sm btn-outline-danger">Users</a>
+                    <a href="create.php" type="button" class="btn btn-sm btn-outline-secondary">Create</a>
+                    <a href="index.php" type="button" class="btn btn-sm btn-outline-danger"><?php echo ucwords($plural); ?></a>
                 </div>
             </div>
         </div>
@@ -37,7 +41,6 @@
     <div class="container">
         <div class="row">
         <div class="col">
-            <h5 class="mb-3">All Blocked Users</h5>
             <div id="crudTable">
             <div class="table-responsive">
                 <table class="table table-striped table-sm" id="myTable">
@@ -57,195 +60,44 @@
 
                 <?php 
                 $paramList = [];
-                $sql = "SELECT * FROM users WHERE user_role = 'u' AND user_status = 0 ORDER BY user_id DESC";
+                $sql = "SELECT * FROM $plural WHERE status = 0 AND role = 'u' ORDER BY id DESC";
                 $result = $obj->executeSQL($sql, $paramList , true);
-                foreach($result as $res) { 
+                foreach($result as $row) { 
                     ?>
                 
                     <tr>
                     <td><input type="checkbox" name="checkbox"></td>
-                    <?php $img = empty($res['user_image']) ? "../../images/placeholder.png" : "../uploads/users/" . $res['user_image']?>
+                    <?php $img = empty($row['image']) ? "../../images/placeholder.png" : "../uploads/$plural/" . $row['image']?>
                     <td><img src="<?php echo $img ?>" alt="image" class="crtudTableImage"></td>
-                    <td><?php echo $res["user_id"] ?></td>
-                    <td><?php echo $res["user_name"] ?></td>
-                    <td><?php echo $res["user_email"] ?></td>
-                    <td><?php echo date('Y-M-d | h:i:s A', strtotime($res["created_at"])) ?></td>
-                    <td><?php echo date('Y-M-d | h:i:s A', strtotime($res["updated_at"])) ?></td>
-                    <td>
-                        <a href="#" class="unblock btn btn-success btn-sm" data-id=<?php echo $res['user_id'] ?>>
-                        <i class="fa-solid fa-lock-open" data-bs-toggle="tooltip" data-bs-placement="top" title="Unblock"></i>
-                        </a>
-                        |
-                        <a href="#" class="delete btn btn-danger btn-sm" data-id=<?php echo $res['user_id'] ?>>
-                        <i class="fa fa-times-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"></i>
-                        </a>
-                    </td>
+                    <td><?php echo $row["id"] ?></td>
+                    <td><?php echo $row["name"] ?></td>
+                    <td><?php echo $row["email"] ?></td>
+                    <td><?php echo date('Y-M-d | h:i:s A', strtotime($row["created_at"])) ?></td>
+                    <td><?php echo date('Y-M-d | h:i:s A', strtotime($row["updated_at"])) ?></td>
+                    
+                    <!-- Table Action Column -->
+                    <?php include('../includes/table-actions.php'); ?>
+                    
                     </tr>
                 <?php } ?>
                     
                 </tbody>
                 </table>
 
-                <div class="tableOptions">
-                    <div class="btn-group btn-group-sm">
-                        <a type="button" class="btn btn-success" href="<?php echo $_SERVER['PHP_SELF'] ?>" id="refreshButton">Refresh</a>
-                    </div>
-                    <div class="btn-group btn-group-sm">
-                        <a href="#" type="button" class="btn btn-warning disabled" id="unblockSelected"
-                        data-bs-toggle="modal" data-bs-target="#unblockSelectedModal">Unblock</a>
-                        <a type="button" class="btn btn-warning dropdown-toggle dropdown-toggle-split"
-                        data-bs-toggle="dropdown">
-                        <span class="visually-hidden">Toggle Dropdown</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                        <li><a class="dropdown-item small" href="#" id="unblockAll" data-bs-toggle="modal"
-                            data-bs-target="#unblockAllModal">Unblock All</a></li>
-                        </ul>
-                    </div>
-                    <div class="btn-group btn-group-sm">
-                        <a type="button" href="#" class="btn btn btn-danger disabled" id="deleteSelected"
-                        data-bs-toggle="modal" data-bs-target="#deleteSelectedModal">Delete</a>
-                        <a type="button" class="btn btn btn-danger dropdown-toggle dropdown-toggle-split"
-                        data-bs-toggle="dropdown">
-                        <span class="visually-hidden">Toggle Dropdown</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                        <li><a class="dropdown-item small" href="#" id="deleteAll" data-bs-toggle="modal"
-                            data-bs-target="#deleteAllModal">Delete All</a></li>
-                        </ul>
-                    </div>
-                    <hr>
-                </div>
+                <!-- Table Options -->
+                <?php include('../includes/table-options.php'); ?>
+
+
             </div>
             </div>
         </div>
         </div>
     </div>
 
-    <!-- The Delete Modal -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Confirmation Message!</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center">
-            <form action="#">
-                <p id="modalMessage">Are you sure you want to permanantly delete this user?</p>
-                <a href="#" id="deleteLink" class="btn btn-danger w-25">Yes</a>
-                <button type="button" class="btn btn-secondary w-25" data-bs-dismiss="modal">No</button>
-            </form>
-            </div>
-            <div class="modal-footer"></div>
-        </div>
-        </div>
-    </div>
+    <?php include('../includes/delete-modals.php'); ?>
+    <?php include('../includes/unblock-modals.php'); ?>
 
-    <!-- The Delete Selected Modal -->
-    <div class="modal fade" id="deleteSelectedModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Confirmation Message!</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center">
-                <form id="deleteSelectedForm" method="POST" action="delete-selected.php">
-                    <p id="modalMessage">Are you sure you want to permanantly delete selected user[s]?</p>
-                    <!-- Hidden input fields to store selected IDs -->
-                    <input type="hidden" name="selectedIds" id="selectedDeleteIds" value="">
-                    <button type="submit" class="btn btn-danger w-25">Yes</button>
-                    <button type="button" class="btn btn-secondary w-25" data-bs-dismiss="modal">No</button>
-                </form>
-            </div>
-            <div class="modal-footer"></div>
-        </div>
-        </div>
-    </div>
-
-    <!-- The Delete All Modal -->
-    <div class="modal fade" id="deleteAllModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Confirmation Message!</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center">
-            <form action="#">
-                <p id="modalMessage">Are you sure you want to permanantly delete all users?</p>
-                <a href="delete-all.php" class="btn btn-danger w-25">Yes</a>
-                <button type="button" class="btn btn-secondary w-25" data-bs-dismiss="modal">No</button>
-            </form>
-            </div>
-            <div class="modal-footer"></div>
-        </div>
-        </div>
-    </div>
-
-    <!-- The Unblock Modal -->
-    <div class="modal fade" id="unblockModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Confirmation Message!</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center">
-            <form action="#">
-                <p id="modalMessage">Are you sure you want to unblock this user?</p>
-                <a href="#" id="unblockLink" class="btn btn-danger w-25">Yes</a>
-                <button type="button" class="btn btn-secondary w-25" data-bs-dismiss="modal">No</button>
-            </form>
-            </div>
-            <div class="modal-footer"></div>
-        </div>
-        </div>
-    </div>
-
-    <!-- The Unblock Selected Modal -->
-    <div class="modal fade" id="unblockSelectedModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Confirmation Message!</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center">
-                <form id="unblockSelectedForm" method="POST" action="unblock-selected.php">
-                    <p id="modalMessage">Are you sure you want to unblock selected user[s]?</p>
-                    <!-- Hidden input fields to store selected IDs -->
-                    <input type="hidden" name="selectedIds" id="selectedUnblockIds" value="">
-                    <button type="submit" class="btn btn-danger w-25">Yes</button>
-                    <button type="button" class="btn btn-secondary w-25" data-bs-dismiss="modal">No</button>
-                </form>
-            </div>
-            <div class="modal-footer"></div>
-        </div>
-        </div>
-    </div>
-
-    <!-- The Unblock All Modal -->
-    <div class="modal fade" id="unblockAllModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Confirmation Message!</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center">
-            <form action="#">
-                <p id="modalMessage">Are you sure you want to unblock all users?</p>
-                <a href="unblock-all.php" class="btn btn-danger w-25">Yes</a>
-                <button type="button" class="btn btn-secondary w-25" data-bs-dismiss="modal">No</button>
-            </form>
-            </div>
-            <div class="modal-footer"></div>
-        </div>
-        </div>
-    </div>
-
+    
 
     <script>
     /*--------------------------

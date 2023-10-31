@@ -8,14 +8,14 @@
         </div>
 
         <div class="col-lg-2 col-sm-4 col-6 text-center mb-4 ">
-            <a href="../users/users.php" class="text-dark">
+            <a href="../users/index.php" class="text-dark">
                 <img src="../../images/users.png">
                 <h6 class="mt-3 fw-bold">Users</h6>
             </a>
         </div>
 
         <div class="col-lg-2 col-sm-4 col-6 text-center mb-4 ">
-            <a href="../categories/categories.php" class="text-dark">
+            <a href="../categories/index.php" class="text-dark">
                 <img src="../../images/categories.png">
                 <h6 class="mt-3 fw-bold">Categories</h6>
             </a>

@@ -32,7 +32,7 @@
 		{
 			// Check if email already exists in the database
 			$paramList = [$email];
-			$sqlCheckEmail = "SELECT COUNT(*) as count FROM users WHERE user_email = ?";
+			$sqlCheckEmail = "SELECT COUNT(*) as count FROM users WHERE email = ?";
 			
 			$emailExists = $obj->executeSQL($sqlCheckEmail, $paramList , true);
 			if ($emailExists[0]['count'] > 0) 
@@ -45,7 +45,7 @@
 				$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
 				// Insert user into the database
-				$sqlInsertUser = "INSERT INTO users (user_name, user_email, user_password) VALUES (?,?,?)";
+				$sqlInsertUser = "INSERT INTO users (name, email, password) VALUES (?,?,?)";
 				$paramList = [$username, $email, $hashedPassword];
 				$result = $obj->executeSQL($sqlInsertUser, $paramList);
 

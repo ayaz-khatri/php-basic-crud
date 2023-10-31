@@ -7,8 +7,11 @@ document.querySelectorAll('#myTable input[type="checkbox"]').forEach(function (c
         var path = window.location.pathname;
         var page = path.split("/").pop();
         var a = document.querySelectorAll('#myTable input[type="checkbox"]:checked').length;
-        if (a > 0) {
+        if (a > 0) 
+        {
             document.getElementById('deleteSelected').classList.remove('disabled');
+
+            /* ----------------------------------- block / unblock ---------------------------------- */
             if(page == "blocked.php")
             {
                 document.getElementById('unblockSelected').classList.remove('disabled');
@@ -17,8 +20,14 @@ document.querySelectorAll('#myTable input[type="checkbox"]').forEach(function (c
             {
                 document.getElementById('blockSelected').classList.remove('disabled');
             }
-        } else {
+            /* ----------------------------------- block / unblock ---------------------------------- */
+
+        } 
+        else 
+        {
             document.getElementById('deleteSelected').classList.add('disabled');
+
+            /* ----------------------------------- block / unblock ---------------------------------- */
             if(page == "blocked.php")
             {
                 document.getElementById('unblockSelected').classList.add('disabled');
@@ -27,6 +36,7 @@ document.querySelectorAll('#myTable input[type="checkbox"]').forEach(function (c
             {
                 document.getElementById('blockSelected').classList.add('disabled');
             }
+            /* ----------------------------------- block / unblock ---------------------------------- */
 
         }
     });

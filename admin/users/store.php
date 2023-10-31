@@ -6,7 +6,10 @@
         include('../logics/check-if-not-admin.php'); // check if user is not admin
         include('../../logics/db.php'); // database connection
         $obj = new db(); // create new object of db class
-		$username = $_POST['username'];
+
+		include('variables.php');
+
+		$name = $_POST['name'];
 		$email = $_POST['email'];
 		$password = $_POST['password'];
 		$gender = !empty($_POST['gender']) ? $_POST['gender'] : NULL;
@@ -15,7 +18,7 @@
 		$address = !empty($_POST['address']) ? $_POST['address'] : NULL;
 
 		// Data validation
-		if (empty($username) || empty($email) || empty($password)) 
+		if (empty($name) || empty($email) || empty($password)) 
 		{
 			$_SESSION['error'] = "Please fill all fields.";
 		} 
@@ -31,7 +34,7 @@
 		{
 			// Check if email already exists in the database
 			$paramList = [$email];
-			$sqlCheckEmail = "SELECT COUNT(*) as count FROM users WHERE user_email = ?";
+			$sqlCheckEmail = "SELECT COUNT(*) as count FROM $plural WHERE email = ?";
 			
 			$emailExists = $obj->executeSQL($sqlCheckEmail, $paramList , true);
 			if ($emailExists[0]['count'] > 0) 
@@ -41,20 +44,20 @@
 			else 
 			{
 				// Upload Image
-				$imageFileName = $obj->uploadImage($_FILES['img'], "../uploads/users/", "user");
+				$imageFileName = $obj->uploadImage($_FILES['img'], "../uploads/$plural/", $singular);
 				
 				// Hash the password
 				$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-				// Insert user into the database
-				$sqlInsertUser = "INSERT INTO users (user_name, user_email, user_password, user_gender, user_dob, user_phone, user_address, user_image) VALUES (?,?,?,?,?,?,?,?)";
-				$paramList = [$username, $email, $hashedPassword, $gender, $dob, $phone, $address, $imageFileName];
-				$result = $obj->executeSQL($sqlInsertUser, $paramList);
+				// Insert into the database
+				$sqlInsert = "INSERT INTO $plural (name, email, password, gender, dob, phone, address, image) VALUES (?,?,?,?,?,?,?,?)";
+				$paramList = [$name, $email, $hashedPassword, $gender, $dob, $phone, $address, $imageFileName];
+				$result = $obj->executeSQL($sqlInsert, $paramList);
 
 				if ($result["queryExecuted"]) 
 				{
-					$_SESSION['success'] = "User created successfully.";
-					header('location: users.php'); die();
+					$_SESSION['success'] = ucwords($singular) ." created successfully.";
+					header('location: index.php'); die();
 				} 
 				else 
 				{

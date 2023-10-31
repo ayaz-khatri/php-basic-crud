@@ -4,31 +4,96 @@
     include('../../logics/db.php'); // database connection
 	$obj = new db(); // create new object of db class
     
+    include('variables.php');
+
     if(isset($_GET['id']) && $_GET['id'] != '')
     {
         $id = $_GET['id'];
-        
         $paramList = [$id];
-
-        $sql = "SELECT user_image FROM users WHERE user_id = ? AND user_role != 'a'";
+        $sql = "SELECT image FROM $plural WHERE id = ? AND role != 'a'";
         $result = $obj->executeSQL($sql, $paramList, true);
-        if($result[0]['user_image'] != '')
+        if($result[0]['image'] != '')
         {
-            $path = "../uploads/users/" . $result[0]['user_image'];
+            $path = "../uploads/$plural/" . $result[0]['image'];
             unlink($path);
         }
-
-        $sql = "DELETE FROM users WHERE user_id = ? AND user_role != 'a'";
+        $sql = "DELETE FROM $plural WHERE id = ? AND role != 'a'";
         $result = $obj->executeSQL($sql, $paramList);
-
         $affectedRows = $result['affectedRows'];
-        $message = $affectedRows . " user deleted successfully.";
+        $message = $affectedRows . " " . $singular . " deleted successfully.";
         $_SESSION['success'] = $message;
-        header("location: users.php");
+        header("location: index.php");
     }
+
+
+    elseif(isset($_POST['deleteSelected']))
+    {
+        $ids = $_POST['selectedIds'];
+        $paramList = explode(",", $ids); // Convert the comma-separated string to an array
+        $placeholders = implode(',', array_fill(0, count($paramList), '?')); // Prepare a parameterized query with placeholders for each ID
+        $sql2 = "SELECT image FROM $plural WHERE id IN ($placeholders) AND role != 'a'";
+        $result2 = $obj->executeSQL($sql2, $paramList, true);
+        foreach($result2 as $res) 
+        {
+            if($res['image'] != '')
+            {
+                $path = "../uploads/$plural/" . $res['image'];
+                unlink($path);
+            }
+        }
+        $sql = "DELETE FROM $plural WHERE id IN ($placeholders) AND role != 'a'";
+        $result = $obj->executeSQL($sql, $paramList);
+        $affectedRows = $result['affectedRows'];
+        $message = $affectedRows . " " . $singular . "[s] deleted successfully.";
+        $_SESSION['success'] = $message;
+        header("location: index.php");
+    }
+
+
+    elseif(isset($_POST['deleteAll']))
+    {
+        $paramList = [];
+        if ($_POST['page'] == "index.php") 
+        {
+            $sql = "SELECT image FROM $plural WHERE status = 1 AND image != ''";
+        } 
+        elseif ($_POST['page'] == "blocked.php") 
+        {
+            $sql = "SELECT image FROM $plural WHERE status = 0 AND image != ''";
+        }
+        // Execute the SQL query to get the file names
+        $result = $obj->executeSQL($sql, $paramList, true);
+       
+        if ($result != '' || !empty($result)) {
+            foreach ($result as $row) {
+                $file = "../uploads/$plural/" . $row['image'];
+                if (is_file($file)) {
+                    unlink($file); // Delete the file
+                }
+            }
+        }
+
+        // Now that files are deleted, delete records from the database
+        $paramList = [];
+        if ($_POST['page'] == "index.php") 
+        {
+            $sql = "DELETE FROM $plural WHERE status = 1";
+        } 
+        elseif ($_POST['page'] == "blocked.php") 
+        {
+            $sql = "DELETE FROM $plural WHERE status = 0";
+        }
+        $result = $obj->executeSQL($sql, $paramList);
+        $affectedRows = $result['affectedRows'];
+        
+        $message = $affectedRows . " " . $singular . "[s] deleted successfully.";
+        $_SESSION['success'] = $message;
+        header("location: index.php");
+    }
+
+
     else
     {
-        header("location: users.php");
-    }
-    
+        header("location: index.php");
+    }  
 ?>

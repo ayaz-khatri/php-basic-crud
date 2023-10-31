@@ -3,12 +3,15 @@ include('../../logics/init-session.php'); // start session if it's not already s
 include('../logics/check-if-not-admin.php'); // check if user is not admin
 include('../../logics/db.php'); // database connection
 $obj = new db(); // create new object of db class
+
+include('variables.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Add New Category</title>
+    <title>Add New <?php echo ucwords($singular); ?></title>
     <?php include('../includes/head-contents.php'); ?>
 </head>
 
@@ -19,12 +22,12 @@ $obj = new db(); // create new object of db class
     <div class="container my-4">
         <div class="row px-2">
             <div class="col-6">
-                <h2 class="text-danger fw-bold">Create Cateogry</h2>
+                <h2 class="text-danger fw-bold">Create <?php echo ucwords($singular); ?></h2>
             </div>
             <div class="col-6 text-end">
                 <div class="btn-group" role="group" aria-label="Basic outlined example">
-                    <a href="categories.php" type="button" class="btn btn-sm btn-outline-secondary">Categories</a>
-                    <a href="blocked.php" type="button" class="btn btn-sm btn-outline-danger">Blocked Categories</a>
+                    <a href="index.php" type="button" class="btn btn-sm btn-outline-secondary"><?php echo ucwords($plural); ?></a>
+                    <a href="blocked.php" type="button" class="btn btn-sm btn-outline-danger">Blocked</a>
                 </div>
             </div>
         </div>
@@ -35,7 +38,7 @@ $obj = new db(); // create new object of db class
 
     <div class="container my-5 px-4 py-1">
         <form class="p-4 p-md-5 border rounded-3 bg-white box needs-validation" onsubmit="return validateForm()" novalidate action="store.php" method="POST" enctype="multipart/form-data">
-            <h4 class="fw-bold lh-1 mb-5">Create New Category</h4>
+            <h4 class="fw-bold lh-1 mb-5">Create New <?php echo ucwords($singular); ?></h4>
 
             <div class="row">
                 <div class="col-md-3 text-center">
@@ -49,8 +52,8 @@ $obj = new db(); // create new object of db class
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingName" name="name" placeholder="John Doe" required>
-                                <label for="floatingName">Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="name" placeholder="John Doe" required>
+                                <label>Name <span class="text-danger">*</span></label>
                                 <div class="valid-feedback">Valid.</div>
                                 <div class="invalid-feedback">Please fill out this field.</div>
                             </div>
@@ -65,8 +68,9 @@ $obj = new db(); // create new object of db class
     </div>
     <?php include('../../includes/footer.php'); ?>
     <script src="../../js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/toggle-password.js"></script>
+    <script src="../js/setDefaultDob.js"></script>
     <script src="../../js/display-clear-image.js"></script>
-
 </body>
 
 </html>

@@ -13,12 +13,17 @@
     <div class="offcanvas-body px-0">
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
             <li class="nav-item fw-bold">
-                <a href="../users/users.php" class="nav-link text-dark sidebarLink">
+                <a href="../home/index.php" class="nav-link text-dark sidebarLink">
+                    <i class="fa-solid fa-home" data-bs-toggle="tooltip" title="Dashboard" style="width: 15px;"></i><span class="ms-3 d-none d-md-inline">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item fw-bold">
+                <a href="../users/index.php" class="nav-link text-dark sidebarLink">
                     <i class="fa-solid fa-people-group" data-bs-toggle="tooltip" title="Users" style="width: 15px;"></i><span class="ms-3 d-none d-md-inline">Users</span>
                 </a>
             </li>
             <li class="nav-item fw-bold">
-                <a href="../categories/categories.php" class="nav-link text-dark sidebarLink">
+                <a href="../categories/index.php" class="nav-link text-dark sidebarLink">
                     <i class="fa-solid fa-list" data-bs-toggle="tooltip" title="Categories" style="width: 15px;"></i><span class="ms-3 d-none d-md-inline">Categories</span>
                 </a>
             </li>

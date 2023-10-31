@@ -6,9 +6,11 @@
         include('../logics/check-if-not-admin.php'); // check if user is not admin
         include('../../logics/db.php'); // database connection
         $obj = new db(); // create new object of db class
-		
+
+        include('variables.php');
+
         $id = $_POST['id'];
-        $username = $_POST['username'];
+        $name = $_POST['name'];
 		$email = $_POST['email'];
 		$password = $_POST['password'];
         $gender = !empty($_POST['gender']) ? $_POST['gender'] : NULL;
@@ -19,7 +21,7 @@
         $url = "edit.php?id=$id";
 
 		// Data validation
-		if (empty($id) || empty($username) || empty($email)) 
+		if (empty($id) || empty($name) || empty($email)) 
 		{
 			$_SESSION['error'] = "Please fill all fields.";
 		} 
@@ -30,19 +32,20 @@
 		else 
 		{
             $paramList = [$id];
-            $sql = "SELECT * FROM users WHERE user_id = ? AND user_role != 'a'";
+            $sql = "SELECT * FROM $plural WHERE id = ? AND role != 'a'";
             $result = $obj->executeSQL($sql, $paramList, true);
             if($result == '' || empty($result))
             {
                 $_SESSION['error'] = "Something went wrong.";
-                header('location: users.php'); die();
+                header('location: index.php'); die();
             }
             else
             {
-                if($email != $result[0]['user_email'])
+                $row = $result[0];
+                if($email != $row['email'])
                 {
                     $paramList = [$email];
-                    $sqlCheckEmail = "SELECT COUNT(*) as count FROM users WHERE user_email = ?";
+                    $sqlCheckEmail = "SELECT COUNT(*) as count FROM $plural WHERE email = ?";
                     
                     $emailExists = $obj->executeSQL($sqlCheckEmail, $paramList , true);
                     if ($emailExists[0]['count'] > 0) 
@@ -65,39 +68,39 @@
                 }
                 else
                 {
-                    $hashedPassword = $result[0]['user_password'];
+                    $hashedPassword = $row['password'];
                 }
 
-                if(($result[0]['user_image'] != '') && $_FILES['img']['size'] == 0)
+                if(($row['image'] != '') && $_FILES['img']['size'] == 0)
                 {
-                    $imageFileName = $result[0]['user_image'];
+                    $imageFileName = $row['image'];
                 }
                 else
                 {
-                    if($result[0]['user_image'] != '')
+                    if($row['image'] != '')
                     {
-                        $path = "../uploads/users/" . $result[0]['user_image'];
+                        $path = "../uploads/$plural/" . $row['image'];
                         unlink($path);
                     }
                     // Upload Image
-    				$imageFileName = $obj->uploadImage($_FILES['img'], "../uploads/users/", "user");
+    				$imageFileName = $obj->uploadImage($_FILES['img'], "../uploads/$plural/", $singular);
                 }
             
                 // Update into the database
                 $date = date('Y-m-d H:i:s');
-                $sqlUpdateUser = "UPDATE users SET user_name = ?, user_email = ?, user_password = ?, user_gender = ?, user_dob = ?, user_phone = ?, user_address = ?, user_image = ?, updated_at = '$date' WHERE user_id = ?";
-                $paramList = [$username, $email, $hashedPassword, $gender, $dob, $phone, $address, $imageFileName, $id];
-                $result = $obj->executeSQL($sqlUpdateUser, $paramList);
+                $sqlUpdate = "UPDATE $plural SET name = ?, email = ?, password = ?, gender = ?, dob = ?, phone = ?, address = ?, image = ?, updated_at = '$date' WHERE id = ?";
+                $paramList = [$name, $email, $hashedPassword, $gender, $dob, $phone, $address, $imageFileName, $id];
+                $result = $obj->executeSQL($sqlUpdate, $paramList);
 
                 if ($result["queryExecuted"]) 
                 {
-                    $_SESSION['success'] = "User updated successfully.";
-                    header('location: users.php'); die();
+                    $_SESSION['success'] = ucwords($singular) . " updated successfully.";
+                    header('location: index.php'); die();
                 } 
                 else 
                 {
                     $_SESSION['error'] = "Something went wrong.";
-                    header('location: users.php'); die();
+                    header('location: index.php'); die();
                 }
             }
 		}
@@ -105,7 +108,7 @@
 	}
 	else
 	{
-		header('location: users.php'); die();
+		header('location: index.php'); die();
 	}
 
 ?>

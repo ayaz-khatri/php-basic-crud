@@ -3,12 +3,15 @@ include('../../logics/init-session.php'); // start session if it's not already s
 include('../logics/check-if-not-admin.php'); // check if user is not admin
 include('../../logics/db.php'); // database connection
 $obj = new db(); // create new object of db class
+
+include('variables.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Add New User</title>
+    <title>Add New <?php echo ucwords($singular); ?></title>
     <?php include('../includes/head-contents.php'); ?>
 </head>
 
@@ -19,12 +22,12 @@ $obj = new db(); // create new object of db class
     <div class="container my-4">
         <div class="row px-2">
             <div class="col-6">
-                <h2 class="text-danger fw-bold">Create User</h2>
+                <h2 class="text-danger fw-bold">Create <?php echo ucwords($singular); ?></h2>
             </div>
             <div class="col-6 text-end">
                 <div class="btn-group" role="group" aria-label="Basic outlined example">
-                    <a href="users.php" type="button" class="btn btn-sm btn-outline-secondary">Users</a>
-                    <a href="blocked.php" type="button" class="btn btn-sm btn-outline-danger">Blocked Users</a>
+                    <a href="index.php" type="button" class="btn btn-sm btn-outline-secondary"><?php echo ucwords($plural); ?></a>
+                    <a href="blocked.php" type="button" class="btn btn-sm btn-outline-danger">Blocked</a>
                 </div>
             </div>
         </div>
@@ -35,7 +38,7 @@ $obj = new db(); // create new object of db class
 
     <div class="container my-5 px-4 py-1">
         <form class="p-4 p-md-5 border rounded-3 bg-white box needs-validation" onsubmit="return validateForm()" novalidate action="store.php" method="POST" enctype="multipart/form-data">
-            <h4 class="fw-bold lh-1 mb-5">Create New User</h4>
+            <h4 class="fw-bold lh-1 mb-5">Create New <?php echo ucwords($singular); ?></h4>
 
             <div class="row">
                 <div class="col-md-3 text-center">
@@ -49,16 +52,16 @@ $obj = new db(); // create new object of db class
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingName" name="username" placeholder="John Doe" required>
-                                <label for="floatingName">Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="name" placeholder="John Doe" required>
+                                <label>Name <span class="text-danger">*</span></label>
                                 <div class="valid-feedback">Valid.</div>
                                 <div class="invalid-feedback">Please fill out this field.</div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
-                                <input type="email" class="form-control" id="floatingEmail" name="email" placeholder="name@example.com" required>
-                                <label for="floatingEmail">Email <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control" name="email" placeholder="name@example.com" required>
+                                <label>Email <span class="text-danger">*</span></label>
                                 <div class="valid-feedback">Valid.</div>
                                 <div class="invalid-feedback">Correct email format is required.</div>
                             </div>
@@ -66,7 +69,7 @@ $obj = new db(); // create new object of db class
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
                                 <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" required>
-                                <label for="floatingPassword" class="w-100">Password <span class="text-danger">*</span><i class="fa-regular text-secondary fa-eye eyeButton ms-3" id="eyeButton" onclick="togglePassword();"></i></label>
+                                <label class="w-100">Password <span class="text-danger">*</span><i class="fa-regular text-secondary fa-eye eyeButton ms-3" id="eyeButton" onclick="togglePassword();"></i></label>
                             </div>
                         </div>
                         <hr>
@@ -78,31 +81,31 @@ $obj = new db(); // create new object of db class
                                     <option value="f">Female</option>
                                     <option value="o">Other</option>
                                 </select>
-                                <label for="floatingSelectGender">Gender</label>
+                                <label>Gender</label>
                                 <div class="valid-feedback">Valid.</div>
                                 <div class="invalid-feedback">Please select one option.</div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-floating mb-3">
-                                <input type="date" class="form-control" id="floatingDate" onclick="setDefaultDoB(this)" name="dob" placeholder="Date of Birth">
-                                <label for="floatingDate">Date of Birth</label>
+                                <input type="date" class="form-control" onclick="setDefaultDoB(this)" name="dob" placeholder="Date of Birth">
+                                <label>Date of Birth</label>
                                 <div class="valid-feedback">Valid.</div>
                                 <div class="invalid-feedback">Correct date format is required.</div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-floating mb-3">
-                                <input type="tel" class="form-control" id="floatingPhone" name="phone" placeholder="Phone Number">
-                                <label for="floatingPhone">Phone Number</label>
+                                <input type="tel" class="form-control" name="phone" placeholder="Phone Number">
+                                <label>Phone Number</label>
                                 <div class="valid-feedback">Valid.</div>
                                 <div class="invalid-feedback">Correct phone format is required.</div>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-floating mb-3">
-                                <input type="address" class="form-control" id="floatingAddress" name="address" placeholder="Address">
-                                <label for="floatingAddress">Address</label>
+                                <input type="address" class="form-control" name="address" placeholder="Address">
+                                <label>Address</label>
                                 <div class="valid-feedback">Valid.</div>
                                 <div class="invalid-feedback">Please fill out this field.</div>
                             </div>
@@ -120,13 +123,6 @@ $obj = new db(); // create new object of db class
     <script src="../../js/toggle-password.js"></script>
     <script src="../js/setDefaultDob.js"></script>
     <script src="../../js/display-clear-image.js"></script>
-
-
-    <script>
-    
-</script>
-
-
 </body>
 
 </html>

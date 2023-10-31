@@ -28,15 +28,15 @@
         else
         {
             $paramList = [$user];
-			$sql = "SELECT * FROM users WHERE user_id = ? AND user_status = 1";
+			$sql = "SELECT * FROM users WHERE id = ? AND status = 1";
 			$result = $obj->executeSQL($sql, $paramList , true);
 
-            if(password_verify($oldPassword, $result[0]['user_password']))
+            if(password_verify($oldPassword, $result[0]['password']))
 			{
                 // Hash the password
 				$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                 $paramList = [$hashedPassword, $user];
-                $sql = "UPDATE users SET user_password = ? WHERE user_id = ?";
+                $sql = "UPDATE users SET password = ? WHERE id = ?";
 			    $result = $obj->executeSQL($sql, $paramList);
                 if($result["queryExecuted"] == true)
                 {

@@ -6,7 +6,9 @@
         include('../logics/check-if-not-admin.php'); // check if user is not admin
         include('../../logics/db.php'); // database connection
         $obj = new db(); // create new object of db class
-		
+
+        include('variables.php');
+
         $id = $_POST['id'];
         $name = $_POST['name'];
         $url = "edit.php?id=$id";
@@ -19,45 +21,46 @@
 		else 
 		{
             $paramList = [$id];
-            $sql = "SELECT * FROM categories WHERE category_id = ? AND category_status = 1";
+            $sql = "SELECT * FROM $plural WHERE id = ?";
             $result = $obj->executeSQL($sql, $paramList, true);
             if($result == '' || empty($result))
             {
                 $_SESSION['error'] = "Something went wrong.";
-                header('location: categories.php'); die();
+                header('location: index.php'); die();
             }
             else
             {
-                if(($result[0]['category_image'] != '') && $_FILES['img']['size'] == 0)
+                $row = $result[0];
+                if(($row['image'] != '') && $_FILES['img']['size'] == 0)
                 {
-                    $imageFileName = $result[0]['category_image'];
+                    $imageFileName = $row['image'];
                 }
                 else
                 {
-                    if($result[0]['category_image'] != '')
+                    if($row['image'] != '')
                     {
-                        $path = "../uploads/categories/" . $result[0]['category_image'];
+                        $path = "../uploads/$plural/" . $row['image'];
                         unlink($path);
                     }
                     // Upload Image
-    				$imageFileName = $obj->uploadImage($_FILES['img'], "../uploads/categories/", "category");
+    				$imageFileName = $obj->uploadImage($_FILES['img'], "../uploads/$plural/", $singular);
                 }
             
                 // Update into the database
                 $date = date('Y-m-d H:i:s');
-                $sqlUpdate = "UPDATE categories SET category_name = ?, category_image = ?, updated_at = '$date' WHERE category_id = ?";
+                $sqlUpdate = "UPDATE $plural SET name = ?, image = ?, updated_at = '$date' WHERE id = ?";
                 $paramList = [$name, $imageFileName, $id];
                 $result = $obj->executeSQL($sqlUpdate, $paramList);
 
                 if ($result["queryExecuted"]) 
                 {
-                    $_SESSION['success'] = "Category updated successfully.";
-                    header('location: categories.php'); die();
+                    $_SESSION['success'] = ucwords($singular) . " updated successfully.";
+                    header('location: index.php'); die();
                 } 
                 else 
                 {
                     $_SESSION['error'] = "Something went wrong.";
-                    header('location: categories.php'); die();
+                    header('location: index.php'); die();
                 }
             }
 		}
@@ -65,7 +68,7 @@
 	}
 	else
 	{
-		header('location: categories.php'); die();
+		header('location: index.php'); die();
 	}
 
 ?>

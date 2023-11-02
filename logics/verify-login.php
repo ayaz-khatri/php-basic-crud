@@ -31,6 +31,7 @@
 					$_SESSION['userid'] = $result[0]['id'];
 					$_SESSION['username'] = $result[0]['name'];
 					$_SESSION['usertype'] = $result[0]['role'];
+					$_SESSION['userimage'] = $result[0]['image'];
 					if($_SESSION['usertype'] == 'a')
 					{
 						header("Location: ../admin/home/index.php"); die();

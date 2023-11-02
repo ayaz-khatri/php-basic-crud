@@ -59,6 +59,5 @@
             data-bs-target="#deleteAllModal">Delete All</a></li>
         </ul>
     </div>
-    
-    <hr>
+
 </div>

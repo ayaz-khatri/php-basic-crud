@@ -1,11 +1,5 @@
 <?php
-include('../../logics/init-session.php'); // start session if it's not already started
-include('../logics/check-if-not-admin.php'); // check if user is not admin
-include('../../logics/db.php'); // database connection
-$obj = new db(); // create new object of db class
-
-include('variables.php');
-
+    include('../includes/header.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +20,8 @@ include('variables.php');
             </div>
             <div class="col-6 text-end">
                 <div class="btn-group" role="group" aria-label="Basic outlined example">
-                    <a href="index.php" type="button" class="btn btn-sm btn-outline-secondary"><?php echo ucwords($plural); ?></a>
+                    <a href="index.php" type="button" class="btn btn-sm btn-outline-primary"><?php echo ucwords($plural); ?></a>
+                    <a href="create.php" type="button" class="btn btn-sm btn-outline-secondary">Create</a>
                     <a href="blocked.php" type="button" class="btn btn-sm btn-outline-danger">Blocked</a>
                 </div>
             </div>
@@ -68,8 +63,14 @@ include('variables.php');
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
-                                <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" required>
+                                <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" required oninput="checkPasswordStrength()">
                                 <label class="w-100">Password <span class="text-danger">*</span><i class="fa-regular text-secondary fa-eye eyeButton ms-3" id="eyeButton" onclick="togglePassword();"></i></label>
+                                <!--Password Strength Progress Bar -->
+                                    <div class="progress mt-2" style="height: 5px; cursor:help;" id="progressBarDiv" title="Password must have at least one small alphabet, one capital alphabet, one special character, one number, and be at least 8 characters long." data-bs-toggle="tooltip">
+                                    <div class="progress-bar" role="progressbar" id="passwordStrengthBar" style="width: 0%;"></div>
+                                    </div>
+                                    <small id="passwordStrengthMessage" class="form-text text-muted" style="display:none;"></small>
+                                    <!--Password Strength Progress Bar ended -->
                             </div>
                         </div>
                         <hr>
@@ -121,6 +122,7 @@ include('variables.php');
     <?php include('../../includes/footer.php'); ?>
     <script src="../../js/bootstrap.bundle.min.js"></script>
     <script src="../../js/toggle-password.js"></script>
+    <script src="../../js/check-password-strength.js"></script>
     <script src="../js/setDefaultDob.js"></script>
     <script src="../../js/display-clear-image.js"></script>
 </body>

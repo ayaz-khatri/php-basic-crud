@@ -1,11 +1,6 @@
 <?php
-    include('../../logics/init-session.php'); // start session if it's not already started
-    include('../logics/check-if-not-admin.php'); // check if user is not admin
-    include('../../logics/db.php'); // database connection
-	$obj = new db(); // create new object of db class
+    include('../includes/header.php');
     
-    include('variables.php');
-
     if(isset($_GET['id']) && $_GET['id'] != '')
     {
         $id = $_GET['id'];

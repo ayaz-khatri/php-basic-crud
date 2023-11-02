@@ -67,7 +67,7 @@ function getSelectedIds()
     var idColumnIndex = -1;
     var headers = document.querySelectorAll('#myTable th');
     for (var i = 0; i < headers.length; i++) {
-        if (headers[i].textContent.trim() === 'ID') {
+        if (headers[i].textContent.trim() === 'Name') {
             idColumnIndex = i;
             break;
         }
@@ -84,8 +84,10 @@ function getSelectedIds()
         } else {
             var row = checkbox.closest('tr');
             var cells = row.querySelectorAll('td');
-            if (idColumnIndex >= 0 && idColumnIndex < cells.length) {
-                selectedIds.push(cells[idColumnIndex].textContent);
+            var nameCell = cells[idColumnIndex];
+            var span = nameCell.querySelector('span');
+            if (span) {
+                selectedIds.push(span.textContent);
             }
         }
     });

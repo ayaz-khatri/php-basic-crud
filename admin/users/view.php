@@ -5,12 +5,7 @@ if(!isset($_GET['id']) || $_GET['id'] == '')
     header("location: index.php"); die();
 }
 
-include('../../logics/init-session.php'); // start session if it's not already started
-include('../logics/check-if-not-admin.php'); // check if user is not admin
-include('../../logics/db.php'); // database connection
-$obj = new db(); // create new object of db class
-
-include('variables.php');
+include('../includes/header.php');
 
 $id = $_GET['id'];
         
@@ -48,8 +43,10 @@ else
             </div>
             <div class="col-6 text-end">
                 <div class="btn-group" role="group" aria-label="Basic outlined example">
-                    <a href="index.php" type="button" class="btn btn-sm btn-outline-secondary"><?php echo ucwords($plural); ?></a>
-                    <a href="edit.php?id=<?php echo $row['id'] ?>" type="button" class="btn btn-sm btn-outline-danger">Edit</a>
+                    <a href="edit.php?id=<?php echo $row['id'] ?>" type="button" class="btn btn-sm btn-outline-success">Edit</a>
+                    <a href="index.php" type="button" class="btn btn-sm btn-outline-primary"><?php echo ucwords($plural); ?></a>
+                    <a href="create.php" type="button" class="btn btn-sm btn-outline-secondary">Create</a>
+                    <a href="blocked.php" type="button" class="btn btn-sm btn-outline-danger">Blocked</a>
                 </div>
             </div>
         </div>
@@ -65,7 +62,7 @@ else
                 <?php $img = empty($row['image']) ? "../../images/placeholder.png" : "../uploads/$plural/" . $row['image']?>
                 <img src="<?php echo $img; ?>" class="img img-fluid shadow rounded mb-4 entityImage">
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 shadow rounded p-4 bg-white">
                 <table class="table">
                     <tr>
                         <td class="fw-bold">Name:</td>

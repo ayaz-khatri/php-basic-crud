@@ -48,6 +48,17 @@ body
     width: 0;
 }
 
+
+.navbarProfileImage
+{
+  width: 35px;
+  height: 35px;
+  border: 2px solid white;
+
+
+
+}
+
 .color-white:hover a
 {
     color: #ffffff !important;
@@ -240,9 +251,15 @@ body
 
 #crudTable .crtudTableImage
 {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
 }
+
+#crudTable .icon-button
+{
+  display: none;
+}
+
 
 #crudTable tbody tr:nth-child(even):hover td{
   background-color: #ffffcc !important;

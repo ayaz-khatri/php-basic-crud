@@ -41,7 +41,7 @@
     <div class="container">
         <div class="row">
         <div class="col">
-            <div id="crudTable">
+            <div id="crudTable" class="shadow mb-5 p-4 rounded">
             <div class="table-responsive">
                 <table class="table table-striped table-sm" id="myTable">
                 <thead>
@@ -67,7 +67,7 @@
                     <tr>
                     <td><input type="checkbox" name="checkbox"></td>
                     <?php $img = empty($row['image']) ? "../../images/placeholder.png" : "../uploads/$plural/" . $row['image']?>
-                    <td><img src="<?php echo $img ?>" alt="image" class="crtudTableImage"></td>
+                    <td><img src="<?php echo $img ?>" alt="image" class="crtudTableImage rounded"></td>
                     <td><?php echo $row["id"] ?></td>
                     <td><?php echo $row["name"] ?></td>
                     <td><?php echo date('Y-M-d | h:i:s A', strtotime($row["created_at"])) ?></td>

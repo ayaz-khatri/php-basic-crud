@@ -152,7 +152,7 @@ class db
 	/* -------------------------------------------------------------------------- */
 	/*                    // Function to validate email format                    */
 	/* -------------------------------------------------------------------------- */
-	function isEmailValid($email) {
+	public function isEmailValid($email) {
 		return filter_var($email, FILTER_VALIDATE_EMAIL);
 	}
 
@@ -160,7 +160,7 @@ class db
 	/* -------------------------------------------------------------------------- */
 	/*   // Function to validate password complexity (add more rules if needed)   */
 	/* -------------------------------------------------------------------------- */
-	function isPasswordValid($password) {
+	public function isPasswordValid($password) {
 		// Password should have at least 8 characters
 		if (strlen($password) < 8) {
 			return false;
@@ -200,7 +200,7 @@ class db
 	/* -------------------------------------------------------------------------- */
 	/*                         // Function to Upload Image                        */
 	/* -------------------------------------------------------------------------- */
-	function uploadImage($file, $uploadDirectory, $entityName = "img", $redirect = "create.php", $allowedTypes = ['image/jpeg', 'image/png'], $maxSize = 500000)
+	public function uploadImage($file, $uploadDirectory, $entityName = "img", $redirect = "create.php", $allowedTypes = ['image/jpeg', 'image/png'], $maxSize = 500000)
 	{
 		$imageFileName = NULL;
 
@@ -232,6 +232,41 @@ class db
 	}
 	
 	
+	/* -------------------------------------------------------------------------- */
+	/*                          Human Readable Timestamp                          */
+	/* -------------------------------------------------------------------------- */
+
+	public function timestampToCustomHumanReadable($timestamp) {
+        $currentTimestamp = time();
+        $timeDifference = abs($currentTimestamp - $timestamp);
+    
+        $secondsPerMinute = 60;
+        $secondsPerHour = $secondsPerMinute * 60;
+        $secondsPerDay = $secondsPerHour * 24;
+        $secondsPerWeek = $secondsPerDay * 7;
+        $secondsPerMonth = $secondsPerDay * 30; // Approximate
+        $secondsPerYear = $secondsPerDay * 365; // Approximate
+    
+        if ($timeDifference >= $secondsPerYear) {
+            $years = floor($timeDifference / $secondsPerYear);
+            return $years . " year" . ($years > 1 ? "s" : "") . " ago";
+        } elseif ($timeDifference >= $secondsPerMonth) {
+            $months = floor($timeDifference / $secondsPerMonth);
+            return $months . " month" . ($months > 1 ? "s" : "") . " ago";
+        } elseif ($timeDifference >= $secondsPerWeek) {
+            $weeks = floor($timeDifference / $secondsPerWeek);
+            return $weeks . " week" . ($weeks > 1 ? "s" : "") . " ago";
+        } elseif ($timeDifference >= $secondsPerDay) {
+            $days = floor($timeDifference / $secondsPerDay);
+            return $days . " day" . ($days > 1 ? "s" : "") . " ago";
+        } elseif ($timeDifference >= $secondsPerHour) {
+            $hours = floor($timeDifference / $secondsPerHour);
+            return $hours . " hour" . ($hours > 1 ? "s" : "") . " ago";
+        } else {
+            $minutes = floor($timeDifference / $secondsPerMinute);
+            return $minutes . " minute" . ($minutes > 1 ? "s" : "") . " ago";
+        }
+    }
 
 
 

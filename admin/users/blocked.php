@@ -1,12 +1,6 @@
 <?php
-    include('../../logics/init-session.php'); // start session if it's not already started
-    include('../logics/check-if-not-admin.php'); // check if user is not admin
-    include('../../logics/db.php'); // database connection
-	$obj = new db(); // create new object of db class
-
+    include('../includes/header.php');
     $datatable = true;
-    include('variables.php');
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,8 +22,9 @@
             </div>
             <div class="col-6 text-end">
                 <div class="btn-group" role="group" aria-label="Basic outlined example">
+                    <a href="index.php" type="button" class="btn btn-sm btn-outline-primary"><?php echo ucwords($plural); ?></a>
                     <a href="create.php" type="button" class="btn btn-sm btn-outline-secondary">Create</a>
-                    <a href="index.php" type="button" class="btn btn-sm btn-outline-danger"><?php echo ucwords($plural); ?></a>
+                    <a href="blocked.php" type="button" class="btn btn-sm btn-outline-danger">Blocked</a>
                 </div>
             </div>
         </div>
@@ -41,17 +36,16 @@
     <div class="container">
         <div class="row">
         <div class="col">
-            <div id="crudTable">
+            <div id="crudTable" class="shadow mb-5 p-4 rounded bg-white">
             <div class="table-responsive">
                 <table class="table table-striped table-sm" id="myTable">
                 <thead>
                     <tr>
                     <th><input type="checkbox" name="checkbox" id="checkAll"></th>
+                    <th class="text-center">No.</th>
                     <th>Image</th>
-                    <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Created At</th>
                     <th>Updated At</th>
                     <th class="actionColumn">Action</th>
                     </tr>
@@ -67,12 +61,11 @@
                 
                     <tr>
                     <td><input type="checkbox" name="checkbox"></td>
+                    <td class="text-center"></td>
                     <?php $img = empty($row['image']) ? "../../images/placeholder.png" : "../uploads/$plural/" . $row['image']?>
-                    <td><img src="<?php echo $img ?>" alt="image" class="crtudTableImage"></td>
-                    <td><?php echo $row["id"] ?></td>
-                    <td><?php echo $row["name"] ?></td>
+                    <td><img src="<?php echo $img ?>" alt="image" class="crtudTableImage rounded"></td>
+                    <td><?php echo $row["name"] ?><span class="d-none"><?php echo $row["id"] ?></span></td>
                     <td><?php echo $row["email"] ?></td>
-                    <td><?php echo date('Y-M-d | h:i:s A', strtotime($row["created_at"])) ?></td>
                     <td><?php echo date('Y-M-d | h:i:s A', strtotime($row["updated_at"])) ?></td>
                     
                     <!-- Table Action Column -->
@@ -107,16 +100,19 @@
     var dataTable = new DataTable(document.querySelector('#myTable'), {
       columnDefs: [
         {
-          targets: [0, 1, 7], // column index (start from 0)
+          targets: [0, 1, 2, 6], // column index (start from 0)
           orderable: false, // set orderable false for selected columns
         },
       ],
-      order: [[2, 'desc']],
+      order: [[3, 'desc']],
     });
 
     </script>
+
+    <script src="../js/datatable-serial-numbers.js"></script>
     <script src="../js/check-boxes.js"></script>
     <script src="../js/modal-settings.js"></script>
+    <script src="../../js/button-icons-load.js"></script>
     <?php include('../../includes/footer.php'); ?>
     <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>

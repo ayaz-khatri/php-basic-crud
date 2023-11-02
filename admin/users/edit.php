@@ -5,12 +5,8 @@ if(!isset($_GET['id']) || $_GET['id'] == '')
     header("location: index.php"); die();
 }
 
-include('../../logics/init-session.php'); // start session if it's not already started
-include('../logics/check-if-not-admin.php'); // check if user is not admin
-include('../../logics/db.php'); // database connection
-$obj = new db(); // create new object of db class
+include('../includes/header.php');
 
-include('variables.php');
 $id = $_GET['id'];
         
 $paramList = [$id];
@@ -47,7 +43,8 @@ else
             </div>
             <div class="col-6 text-end">
                 <div class="btn-group" role="group" aria-label="Basic outlined example">
-                    <a href="index.php" type="button" class="btn btn-sm btn-outline-secondary"><?php echo ucwords($plural); ?></a>
+                    <a href="index.php" type="button" class="btn btn-sm btn-outline-primary"><?php echo ucwords($plural); ?></a>
+                    <a href="create.php" type="button" class="btn btn-sm btn-outline-secondary">Create</a>
                     <a href="blocked.php" type="button" class="btn btn-sm btn-outline-danger">Blocked</a>
                 </div>
             </div>

@@ -60,22 +60,12 @@
 				}
 			}
 		}
+		$_SESSION['formData'] = $_POST;
 		header('location: create.php'); die();
 	}
 	else
 	{
+		$_SESSION['formData'] = $_POST;
 		header('location: create.php'); die();
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 ?>

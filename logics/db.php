@@ -11,6 +11,7 @@ class db
 	private $dbUser = "root";
 	private $dbPassword = "";
 	private $dbName = "php_basic_crud_db";
+	private $timezone = "Asia/Karachi";
 
 
 	/* -------------------------------------------------------------------------- */
@@ -28,6 +29,7 @@ class db
 	
 	public function __construct()
 	{
+		date_default_timezone_set($this->timezone);
 		if(!$this->conn)
 		{
 			$this->mysqli = new mysqli($this->dbHost, $this->dbUser, $this->dbPassword, $this->dbName);

@@ -72,11 +72,11 @@
         $paramList = [];
         if ($_POST['page'] == "index.php") 
         {
-            $sql = "DELETE FROM $plural WHERE status = 1";
+            $sql = "DELETE FROM $plural WHERE status = 1 AND role != 'a'";
         } 
         elseif ($_POST['page'] == "blocked.php") 
         {
-            $sql = "DELETE FROM $plural WHERE status = 0";
+            $sql = "DELETE FROM $plural WHERE status = 0 AND role != 'a'";
         }
         $result = $obj->executeSQL($sql, $paramList);
         $affectedRows = $result['affectedRows'];

@@ -46,7 +46,7 @@
                     <th>Image</th>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Updated At</th>
+                    <th>Updated</th>
                     <th class="actionColumn">Action</th>
                     </tr>
                 </thead>
@@ -66,7 +66,8 @@
                     <td><img src="<?php echo $img ?>" alt="image" class="crtudTableImage rounded"></td>
                     <td><?php echo $row["name"] ?><span class="d-none"><?php echo $row["id"] ?></span></td>
                     <td><?php echo $row["email"] ?></td>
-                    <td><?php echo date('Y-M-d | h:i:s A', strtotime($row["updated_at"])) ?></td>
+                    <?php $date = strtotime($row["updated_at"]); ?>
+                    <td data-sort="<?php echo $row["updated_at"]; ?>"><?php echo $obj->timestampToCustomHumanReadable($date); ?></td>
                     
                     <!-- Table Action Column -->
                     <?php include('../includes/table-actions.php'); ?>
@@ -104,7 +105,7 @@
           orderable: false, // set orderable false for selected columns
         },
       ],
-      order: [[3, 'desc']],
+      order: [[3, 'asc']],
     });
 
     </script>

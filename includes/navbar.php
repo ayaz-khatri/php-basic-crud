@@ -44,7 +44,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
           <a class="nav-link login-btn <?php echo ($current_page == 'login.php') ? 'active' : '' ?>" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">
 
           <?php 
-            if(isset($_SESSION['userimage']) && $_SESSION['image'] != '') 
+            if(isset($_SESSION['userimage']) && $_SESSION['userimage'] != '') 
             {
                 $img = "admin/uploads/users/".$_SESSION['userimage'];
             }
@@ -54,10 +54,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
             }
           ?>
 
-          <img src="<?php echo $img; ?>" class="navbarProfileImage rounded-circle p-1 mt-1">
+          <img src="<?php echo $img; ?>" class="navbarProfileImage rounded-circle border mt-1">
 
           </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+          <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="navbarDropdown">
 
             <li class="text-center py-2 text-danger fw-bold"><?php echo strtoupper($_SESSION['username']); ?></li>
             <li><hr class="dropdown-divider"></li>

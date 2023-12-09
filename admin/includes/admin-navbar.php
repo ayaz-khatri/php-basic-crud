@@ -35,10 +35,10 @@
                   }
                 ?>
                   
-                <img src="<?php echo $img; ?>" class="navbarProfileImage rounded-circle p-1 mt-1">
+                <img src="<?php echo $img; ?>" class="navbarProfileImage rounded-circle border mt-1">
               
               </a>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="navbarDropdown">
                 <li class="text-center py-2 text-danger fw-bold"><?php echo strtoupper($_SESSION['username']); ?></li>
                 <hr class="dropdown-divider">
 

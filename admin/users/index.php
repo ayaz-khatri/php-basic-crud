@@ -45,7 +45,7 @@
                         <th>Image</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Updated At</th>
+                        <th>Updated</th>
                         <th class="actionColumn">Action</th>
                         </tr>
                     </thead>

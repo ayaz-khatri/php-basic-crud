@@ -43,7 +43,6 @@ else
             </div>
             <div class="col-6 text-end">
                 <div class="btn-group" role="group" aria-label="Basic outlined example">
-                    <a href="edit.php?id=<?php echo $row['id'] ?>" type="button" class="btn btn-sm btn-outline-success">Edit</a>
                     <a href="index.php" type="button" class="btn btn-sm btn-outline-primary"><?php echo ucwords($plural); ?></a>
                     <a href="create.php" type="button" class="btn btn-sm btn-outline-secondary">Create</a>
                     <a href="blocked.php" type="button" class="btn btn-sm btn-outline-danger">Blocked</a>
@@ -56,86 +55,103 @@ else
     <?php include('../../includes/messages.php'); ?>
 
     <div class="container my-5 px-4 py-1">
-        
-        <div class="row">
-            <div class="col-md-4 text-center">
-                <?php $img = empty($row['image']) ? "../../images/placeholder.png" : "../uploads/$plural/" . $row['image']?>
-                <img src="<?php echo $img; ?>" class="img img-fluid shadow rounded mb-4 entityImage">
-            </div>
-            <div class="col-md-8 shadow rounded p-4 bg-white">
-                <table class="table">
-                    <tr>
-                        <td class="fw-bold">Name:</td>
-                        <td><?php echo $row['name'] ?></td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">Email:</td>
-                        <td><?php echo $row['email'] ?></td>
-                    </tr>
-                    <tr>
-                        <?php
-                            $status = ""; 
-                            $statusClass = "";
-                            if ($row['status'] == "1") 
-                            {
-                                $status =  "Active";
-                                $statusClass = "text-success";
-                            } 
-                            elseif($row['status'] == "0") 
-                            {
-                                $status =  "Blocked";
-                                $statusClass = "text-danger";
-                            }
-                            
-                        ?>
-                        <td class="fw-bold">Status:</td>
-                        <td class="<?php echo $statusClass; ?> fw-bold"><?php echo $status ?></td>
-                    </tr>
-                    <tr>
-                        <?php
-                            $gender = ""; 
-                            if ($row['gender'] == "m") 
-                            {
-                                $gender =  "Male";
-                            } 
-                            elseif($row['gender'] == "f")
-                            {
-                                $gender =  "Female";
-                            }
-                            elseif($row['gender'] == "o")
-                            {
-                                $gender =  "Other";
-                            }
-                        ?>
-                        <td class="fw-bold">Gender:</td>
-                        <td><?php echo $gender ?></td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">Date of Birth:</td>
-                        <td><?php echo $row['dob'] ?></td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">Phone:</td>
-                        <td><?php echo $row['phone'] ?></td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">Address:</td>
-                        <td><?php echo $row['address'] ?></td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">Created At:</td>
-                        <td><?php echo date('Y-M-d | h:i:s A', strtotime($row["created_at"])) ?></td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">Updated At:</td>
-                        <td><?php echo date('Y-M-d | h:i:s A', strtotime($row["updated_at"])) ?></td>
-                    </tr>
-                </table>
-            </div>
-            
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <?php $img = empty($row['image']) ? "../../images/placeholder.png" : "../uploads/$plural/" . $row['image']?>
+            <img src="<?php echo $img; ?>" class="img img-fluid shadow rounded mb-4 entityImage" alt="User Image">
         </div>
+        <div class="col-md-8">
+            <div class="card shadow rounded p-4">
+                <div class="card-body">
+                    <div class="row px-2">
+                        <div class="col-6">
+                            <h5 class="card-title mb-4 fw-bold"><?php echo $row['name']; ?></h5>
+                        </div>
+                        <div class="col-6 text-end">
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                <a href="edit.php?id=<?php echo $row['id'] ?>" type="button" class="btn btn-sm btn-outline-success">Edit</a>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-borderless">
+                        <tr>
+                            <td class="fw-bold">Email:</td>
+                            <td><?php echo $row['email'] ?></td>
+                        </tr>
+                        <tr>
+                            <?php
+                                $status = "";
+                                $statusClass = "";
+                                if ($row['status'] == "1") {
+                                    $status =  "Active";
+                                    $statusClass = "text-success";
+                                } elseif ($row['status'] == "0") {
+                                    $status =  "Blocked";
+                                    $statusClass = "text-danger";
+                                }
+                            ?>
+                            <td class="fw-bold">Status:</td>
+                            <td class="<?php echo $statusClass; ?> fw-bold"><?php echo $status; ?></td>
+                        </tr>
+                    </table>
+                    
+                    <div class="row">
+                        <hr>
+                        <div class="col">
+                            <small class="text-muted">Date of Birth:</small>
+                            <p><?php echo ($row['dob'] != "") ? $row['dob'] : "--"  ?></p>
+                        </div>
+                        <div class="col">
+                            <small class="text-muted">Phone:</small>
+                            <p><?php echo ($row['phone'] != "") ? $row['phone'] : "--"  ?></p>
 
+                        </div>
+                        <div class="col">
+                            <small class="text-muted">Gender:</small>
+                            <?php
+                                $gender = "--"; 
+                                if ($row['gender'] == "m") 
+                                {
+                                    $gender =  "Male";
+                                } 
+                                elseif($row['gender'] == "f")
+                                {
+                                    $gender =  "Female";
+                                }
+                                elseif($row['gender'] == "o")
+                                {
+                                    $gender =  "Other";
+                                }
+                            ?>
+                            <p><?php echo $gender; ?></p>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <small class="text-muted">Address:</small>
+                            <p><?php echo ($row['address'] != "") ? $row['address'] : "--"  ?></p>
+
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <small class="text-muted">Created At:</small>
+                            <p><?php echo date('Y-M-d | h:i:s A', strtotime($row["created_at"])); ?></p>
+                        </div>
+                        <div class="col">
+                            <small class="text-muted">Updated:</small>
+                            <?php $date = strtotime($row["updated_at"]); ?>
+                            <p><?php echo $obj->timestampToCustomHumanReadable($date); ?></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+
 
 
     <?php include('../../includes/footer.php'); ?>

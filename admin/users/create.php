@@ -1,5 +1,6 @@
 <?php
     include('../includes/header.php');
+    include('../logics/old-data.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +39,7 @@
             <div class="row">
                 <div class="col-md-3 text-center">
                     <img src="../../images/placeholder.png" class="img img-fluid shadow rounded mb-4 entityImage" id="img">
-                    <input type="file" name="img" accept="image/x-png,image/jpeg" id="imageUpload" class="form-control">
+                    <input type="file" name="img" accept="image/x-png,image/jpeg" id="imageUpload" class="form-control my-3">
                     <div class="valid-feedback">Valid.</div>
                     <div class="invalid-feedback">Only JPG and PNG images are allowed. File size must be less than 0.5 MB.</div>
                     <button type="button" class="btn btn-secondary btn-sm mt-2 d-none" id="clearImage">Clear Image</button>
@@ -47,7 +48,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" name="name" placeholder="John Doe" required>
+                                <input type="text" class="form-control" name="name" placeholder="John Doe" value="<?php echo oldData("name") ?>" required>
                                 <label>Name <span class="text-danger">*</span></label>
                                 <div class="valid-feedback">Valid.</div>
                                 <div class="invalid-feedback">Please fill out this field.</div>
@@ -55,7 +56,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
-                                <input type="email" class="form-control" name="email" placeholder="name@example.com" required>
+                                <input type="email" class="form-control" name="email" placeholder="name@example.com" value="<?php echo oldData("email") ?>" required>
                                 <label>Email <span class="text-danger">*</span></label>
                                 <div class="valid-feedback">Valid.</div>
                                 <div class="invalid-feedback">Correct email format is required.</div>
@@ -78,9 +79,9 @@
                             <div class="form-floating mb-3">
                                 <select class="form-select" id="floatingSelectGender" name="gender">
                                     <option value="">Select Gender</option>
-                                    <option value="m">Male</option>
-                                    <option value="f">Female</option>
-                                    <option value="o">Other</option>
+                                    <option value="m" <?php if (oldData("gender") === 'm') echo 'selected'; ?>>Male</option>
+                                    <option value="f" <?php if (oldData("gender") === 'f') echo 'selected'; ?>>Female</option>
+                                    <option value="o" <?php if (oldData("gender") === 'o') echo 'selected'; ?>>Other</option>
                                 </select>
                                 <label>Gender</label>
                                 <div class="valid-feedback">Valid.</div>
@@ -89,7 +90,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-floating mb-3">
-                                <input type="date" class="form-control" onclick="setDefaultDoB(this)" name="dob" placeholder="Date of Birth">
+                                <input type="date" class="form-control" onclick="setDefaultDoB(this)" name="dob" placeholder="Date of Birth" value="<?php echo oldData("dob") ?>">
                                 <label>Date of Birth</label>
                                 <div class="valid-feedback">Valid.</div>
                                 <div class="invalid-feedback">Correct date format is required.</div>
@@ -97,7 +98,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-floating mb-3">
-                                <input type="tel" class="form-control" name="phone" placeholder="Phone Number">
+                                <input type="tel" class="form-control" name="phone" placeholder="Phone Number" value="<?php echo oldData("phone") ?>">
                                 <label>Phone Number</label>
                                 <div class="valid-feedback">Valid.</div>
                                 <div class="invalid-feedback">Correct phone format is required.</div>
@@ -105,7 +106,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-floating mb-3">
-                                <input type="address" class="form-control" name="address" placeholder="Address">
+                                <input type="address" class="form-control" name="address" placeholder="Address" value="<?php echo oldData("address") ?>">
                                 <label>Address</label>
                                 <div class="valid-feedback">Valid.</div>
                                 <div class="invalid-feedback">Please fill out this field.</div>
@@ -119,6 +120,14 @@
             </div>
         </form>
     </div>
+
+    <?php 
+       if (isset($_SESSION['formData'])) 
+       {
+            unset($_SESSION['formData']);
+       }
+    ?>
+
     <?php include('../../includes/footer.php'); ?>
     <script src="../../js/bootstrap.bundle.min.js"></script>
     <script src="../../js/toggle-password.js"></script>

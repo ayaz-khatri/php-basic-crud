@@ -10,7 +10,7 @@ include('../includes/header.php');
 $id = $_GET['id'];
         
 $paramList = [$id];
-$sql = "SELECT * FROM $plural WHERE id = ? AND status != 0 AND role != 'a'";
+$sql = "SELECT * FROM $plural WHERE id = ? AND role != 'a'";
 $result = $obj->executeSQL($sql, $paramList, true);
 
 if($result == '' || empty($result))
@@ -69,7 +69,21 @@ else
                         </div>
                         <div class="col-6 text-end">
                             <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                <a href="edit.php?id=<?php echo $row['id'] ?>" type="button" class="btn btn-sm btn-outline-success">Edit</a>
+                                <a href="edit.php?id=<?php echo $row['id'] ?>" class="btn btn-primary btn-sm p-1 px-2 icon-button" id="btnEdit">
+                                <i class="fa fa-edit" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"></i>
+                                </a>
+                    
+                                <?php if($row['status'] == 0) { ?>
+                                    <a href="unblock.php?id=<?php echo $row['id'] ?>" class="block btn btn-warning btn-sm p-1 px-2 icon-button">
+                                    <i class="fa fa-lock-open" data-bs-toggle="tooltip" data-bs-placement="top" title="Unblock"></i>
+                                    </a>
+
+                                <?php } else { ?> 
+                                    <a href="block.php?id=<?php echo $row['id'] ?>" class="block btn btn-warning btn-sm p-1 px-2 icon-button">
+                                    <i class="fa fa-lock" data-bs-toggle="tooltip" data-bs-placement="top" title="Block"></i>
+                                    </a>  
+                                <?php  } ?>
+
                             </div>
                         </div>
                     </div>

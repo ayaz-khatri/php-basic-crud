@@ -102,10 +102,6 @@
       ],
       order: [[3, 'asc']],
     });
-
-
-
-
     </script>
 
     <script src="../js/datatable-serial-numbers.js"></script>

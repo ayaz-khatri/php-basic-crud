@@ -10,7 +10,7 @@ include('../includes/header.php');
 $id = $_GET['id'];
         
 $paramList = [$id];
-$sql = "SELECT * FROM $plural WHERE id = ? AND status != 0 AND role != 'a'";
+$sql = "SELECT * FROM $plural WHERE id = ? AND role != 'a'";
 $result = $obj->executeSQL($sql, $paramList, true);
 
 if($result == '' || empty($result))
